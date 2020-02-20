@@ -1,0 +1,12 @@
+# Demo time
+/!
+/!
+## PSA
+/!
+#### There are other metrics and logging systems.
+
+// ----------------------------------------------------------------
+// using: prometheus, loki and grafana
+//
+// code: github.com/butlerx/metrics-logs-demo
+// ----------------------------------------------------------------

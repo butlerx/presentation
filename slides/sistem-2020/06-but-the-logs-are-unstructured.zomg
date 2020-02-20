@@ -1,0 +1,15 @@
+# Understanding the logs
+# I can see my log but I dont know whats happening
+/!
+/!
+## Logs from WeTTy Version 0.5.0
+/!
+// Tue Feb 18 2020 12:55:02 GMT+0000 (UTC) Connection accepted.
+// Tue Feb 18 2020 12:55:02 GMT+0000 (UTC) PID=73 STARTED on behalf of user localhost
+// disconnect
+// Tue Feb 18 2020 13:42:08 GMT+0000 (UTC) PID=73 ENDED
+// exit with code: 0
+// Tue Feb 18 2020 16:06:51 GMT+0000 (UTC) Connection accepted.
+// Tue Feb 18 2020 16:06:51 GMT+0000 (UTC) PID=85 STARTED on behalf of user localhost
+// Tue Feb 18 2020 16:49:35 GMT+0000 (UTC) Connection accepted.
+// Tue Feb 18 2020 16:49:35 GMT+0000 (UTC) PID=97 STARTED on behalf of user localhost

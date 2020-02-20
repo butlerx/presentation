@@ -1,0 +1,13 @@
+# What is Observability?
+
+/!
+#### Observability is a term from control theory.
+/!
+
+// In control theory, observability is a measure of how well internal states of
+// a system can be inferred by knowledge of its external outputs. The observability
+// and controllability of a system are mathematical duals.
+// - Wikipedia "observability"
+
+Well this is quite a dry explenation so what is observability in the real tech?
+Observability is about being able to understand what is happening in a production system.

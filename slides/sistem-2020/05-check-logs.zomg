@@ -1,0 +1,12 @@
+# Check the logs
+/!
+/!
+### What do we search for?
+### Can you search, k8s?
+### What Server are those logs on?
+
+- You Ssh to a server
+- You grep the logs
+- You wc your grep
+
+or your lucky you've central logs

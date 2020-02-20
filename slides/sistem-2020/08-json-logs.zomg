@@ -1,0 +1,11 @@
+# So Why JSON Logs
+/!
+### - No Special parsing
+### - Understood by everyone
+### - Search on key value
+### - Can use traditional log messages mixed with structured data
+/!
+/!
+## refs:
+### https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html
+### https://docs.timber.io/guides/structured-logging-best-practices
