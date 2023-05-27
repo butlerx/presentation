@@ -1,17 +1,6 @@
----
-title: Observability, is it a buzz word or something you should care about
-description: >-
-  Cian is an SRE for demonware's data pipeline team working on metrics, logs and
-  game events systems. In the talk he be going in to Observability and what it
-  is. He will talk about why you should care about observability in your
-  programs and how to use it.
-author: Cian Butler <butlerx@notthe.cloud>
-link: github.com/butlerx
----
+### Observability, is it a buzz word or something you should care about
 
-# Observability, is it a buzz word or something you should care about
-
-notes?:
+notes:
 
 - Who's heard of Observability?
 - Who am I.
@@ -23,7 +12,7 @@ notes?:
 
 ## But Actually No
 
-notes?:
+notes:
 
 Yes Observability is a bit of a buzz word but it is actually very important to
 understanding what your application is doing in a production environment.
@@ -40,7 +29,7 @@ Observability is a term from control theory.
 >
 > - Wikipedia "observability"
 
-notes?:
+notes:
 
 Well this is quite a dry explanation so what is observability in the real tech?
 Observability is about being able to understand what is happening in a
@@ -57,7 +46,7 @@ production system.
 
 **Now what?**
 
-notes?:
+notes:
 
 Story Time:
 
@@ -75,7 +64,7 @@ Story Time:
 - Can you search, k8s?
 - What Server are those logs on?
 
-notes?:
+notes:
 
 - You ssh to a server
 - You grep the logs
@@ -160,7 +149,7 @@ service.events_count;state=scheduled;backend=mysql;env=prod 90.0 1582136043
 service.build_info;branch=master;goversion=go1.13.4;version=6.5.1 1 1582136043
 ```
 
-notes?: Known Questions you want to ask the service Metrics Allow you to produce
+notes: Known Questions you want to ask the service Metrics Allow you to produce
 Known State of your system at a specific time. These can be used to:
 
 - see is a system healthy
@@ -175,9 +164,9 @@ Known State of your system at a specific time. These can be used to:
 
 There are other metrics and logging systems.
 
-using: prometheus, loki and grafana
+**using**: prometheus, loki and grafana
 
-code: github.com/butlerx/metrics-logs-demo
+**code**: github.com/butlerx/metrics-logs-demo
 
 ---
 
@@ -214,4 +203,4 @@ code: github.com/butlerx/metrics-logs-demo
 
 Emails: jobs@demonware.net
 
-notes?: c, python interships
+notes: c, python interships

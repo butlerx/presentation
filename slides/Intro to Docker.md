@@ -1,10 +1,3 @@
----
-title: Intro to Docker
-tags: redbrick, docker
-slideOptions:
-  theme: redbrick
----
-
 ## Docker: The Cloud in a box
 
 ---

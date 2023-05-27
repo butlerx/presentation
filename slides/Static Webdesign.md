@@ -1,10 +1,3 @@
----
-title: Static Webdesign
-tags: redbrick, hugo, static-webdesign
-slideOptions:
-  theme: redbrick
----
-
 # Static Site
 
 ---

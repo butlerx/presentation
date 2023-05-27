@@ -1,19 +1,3 @@
----
-title: Docker A Better Way for Dependencies
-description: Techweek talk on using docker for dependencies
-tags: techweek, docker, redbrick
-breaks: false
-slideOptions:
-  theme: redbrick
-  mouseWheel: true
-  center: true
-  history: true
-  progress: true
-  controls: true
-  transition: slide
-  slideNumber: false,
----
-
 ### Docker: A Better Way for Dependencies
 
 ---

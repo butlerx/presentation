@@ -1,10 +1,3 @@
----
-title: How to Redbrick
-tags: redbrick, how-to
-slideOptions:
-  theme: redbrick
----
-
 # How to Redbrick
 
 IRC Clients, Multiplexers, Web Hosting, Development
