@@ -1,0 +1,31 @@
+{
+  "name": "Presentations",
+  "version": "1.0.0",
+  "description": "Slide decks for talks ive given over many years",
+  "main": "eleventy.config.js",
+  "scripts": {
+    "start": "eleventy --serve --quiet",
+    "build": "NODE_ENV=production eleventy",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/butlerx/presentation.git"
+  },
+  "author": {
+    "name": "Cian Butler",
+    "email": "butlerx@notthe.cloud",
+    "url": "https://cianbutler.ie"
+  },
+  "homepage": "https://github.com/butlerx/presentation",
+  "dependencies": {
+    "reveal.js": "^4.6.1"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-img": "^3.1.1",
+    "@11ty/eleventy-plugin-bundle": "^1.0.4",
+    "markdown-it-revealjs": "^1.0.0",
+    "prettier": "^3.0.3"
+  }
+}

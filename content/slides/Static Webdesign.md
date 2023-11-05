@@ -1,3 +1,12 @@
+---
+title: Static Webdesign
+tags: redbrick, hugo, static-webdesign
+description:
+  Talk for redbrick on web development using hugo to create a static site
+slideOptions:
+  theme: redbrick
+---
+
 # Static Site
 
 ---
@@ -14,7 +23,7 @@ is easy to host and share.
 
 ## Dynamic vs static
 
----
+===
 
 ### Static Site
 
@@ -23,7 +32,7 @@ A static site is one that does not change once the content is set.
 - plain old html site
 - redbrick
 
----
+===
 
 ### Dynamic Site
 
@@ -33,7 +42,7 @@ A dynamic is one that is generated everytime you load it.
 - facebook
 - twitter
 
----
+===
 
 # Hugo
 
@@ -51,7 +60,7 @@ use it
 ssh username@pygmalion.redbrick.dcu.ie
 ```
 
----
+===
 
 ## Creating your first site
 
@@ -61,7 +70,7 @@ To generate your first site you can type the command:
 hugo new site ~/my-website
 ```
 
----
+===
 
 Jump into your new site and have a look around at the files
 
@@ -70,7 +79,7 @@ cd ~/my-website
 ls -F
 ```
 
----
+===
 
 Open up the `config.yaml` file to change the configuration of your website
 
@@ -88,7 +97,7 @@ nano content/index.md
 
 ## Making it your own
 
----
+===
 
 ### Changing images
 
@@ -101,7 +110,7 @@ To change these you will need to add these to your `/static/img/` folder.
 - banner.jpg
 - about.jpg
 
----
+===
 
 ### Customising pages
 
@@ -110,7 +119,7 @@ To change these you will need to add these to your `/static/img/` folder.
 - Change `title: A Redbrick users site` to the title of your main page
 - You can also add your social media links in here after `link: '#'`
 
----
+===
 
 ### Adding new pages
 
@@ -138,7 +147,7 @@ hugo
 
 This will output all the code into the `public` folder.
 
----
+===
 
 To publish it to redbrick
 
@@ -153,7 +162,7 @@ chmod -r 644 *.html *.css *.html *.jpg *.png
 
 ## Why is my static site really slow to load?
 
----
+===
 
 ### Images
 
@@ -164,7 +173,7 @@ Don't use high-res scale them down and compress them
 
 Compression removes details but makes them smaller
 
----
+===
 
 ### Minification
 

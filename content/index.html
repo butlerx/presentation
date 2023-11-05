@@ -1,0 +1,27 @@
+---
+layout: layouts/base.html
+eleventyExcludeFromCollections: true
+---
+
+{% set slidesCount = collections.all | length %}
+
+<h1>Latest {{ slidesCount }} slide{% if slidesCount != 1 %}s{% endif %}</h1>
+
+{% set slideslist = collections.all %} {%- css %}.slidelist { counter-reset:
+start-from {{ slidesCount + 1 }} }{% endcss %}
+
+<ol reversed class="slidelist">
+  {% for slide in collections.all | reverse %}
+  <li
+    class="slidelist-item{% if slide.url == url %} slidelist-item-active{% endif %}"
+  >
+    <a href="{{ slide.url }}" class="slidelist-link"
+      >{% if slide.data.title %}{{ slide.data.title }}{% else %}<code
+        >{{ slide.url }}</code
+      >{% endif %}</a
+    >
+    <div class="slidelist-tag">{{ slide.data.tags }}</div>
+    <p class="slidelist-description">{{ slide.data.description }}</p>
+  </li>
+  {% endfor %}
+</ol>

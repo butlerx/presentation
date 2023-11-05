@@ -1,3 +1,11 @@
+---
+title: Docker A Better Way for Dependencies
+description: Techweek talk on using docker for dependencies
+tags: techweek, docker, redbrick
+slideOptions:
+  theme: redbrick
+---
+
 ### Docker: A Better Way for Dependencies
 
 ---
@@ -9,13 +17,13 @@
   developer<!-- .element: class="fragment" data-fragment-index="2" -->
 - And a Demo<!-- .element: class="fragment" data-fragment-index="3" -->
 
----
+===
 
 ### What is Docker
 
 The complicated part!
 
----
+===
 
 > A container image is a lightweight, stand-alone, executable package of a piece
 > of software that includes everything needed to run it: code, runtime, system
@@ -26,7 +34,7 @@ Note:
 - This is long winded
 - Show don't tell
 
----
+===
 
 ![Docker Visulisation](https://i.imgur.com/njoGZ28.png =500x)
 
@@ -40,7 +48,7 @@ Note:
 
 ### Why you should Care
 
----
+===
 
 #### Docker
 
@@ -49,7 +57,7 @@ Note:
 - No Clean Up
 - Simple Script to build custom images
 
----
+===
 
 #### Docker Compose
 
@@ -62,7 +70,7 @@ Note:
 
 ## Demo
 
----
+===
 
 ### Docker Command
 
@@ -75,7 +83,7 @@ LOG_ROTATE='24h'\
 -p 3000:3000 redbrick/site
 ```
 
----
+===
 
 ### Docker Compose
 
@@ -94,7 +102,7 @@ services:
       LOG_ROTATE: '24h'
 ```
 
----
+===
 
 #### Try it live?
 
@@ -107,7 +115,7 @@ services:
 - [docs.docker.com/engine/tutorials](https://docs.docker.com/engine/tutorials/)
 - [video.fosdem.org](https://video.fosdem.org)
 
----
+===
 
 #### Questions?
 
