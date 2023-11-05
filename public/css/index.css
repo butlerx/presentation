@@ -122,6 +122,7 @@ header:after {
 
 /* slides list */
 .slidelist {
+  counter-reset: start-from 0;
   list-style: none;
   padding: 0;
   padding-left: 1.5rem;
@@ -130,7 +131,7 @@ header:after {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  counter-increment: start-from -1;
+  counter-increment: start-from;
   margin-bottom: 1em;
 }
 .slidelist-item:before {
@@ -158,9 +159,6 @@ header:after {
   text-underline-position: from-font;
   text-underline-offset: 0;
   text-decoration-thickness: 1px;
-}
-.slidelist-item-active .slidelist-link {
-  font-weight: bold;
 }
 
 /* Tags */

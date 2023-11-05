@@ -11,19 +11,19 @@ link: github.com/butlerx
 
 ### Observability, is it a buzz word or something you should care about
 
-notes:
+Note:
 
 - Who's heard of Observability?
 - Who am I.
 - Why I'm talking about Observability
 
----
+===
 
 # Yes
 
 ## But Actually No
 
-notes:
+Note:
 
 Yes Observability is a bit of a buzz word but it is actually very important to
 understanding what your application is doing in a production environment.
@@ -40,7 +40,7 @@ Observability is a term from control theory.
 >
 > - Wikipedia "observability"
 
-notes:
+Note:
 
 Well this is quite a dry explanation so what is observability in the real tech?
 Observability is about being able to understand what is happening in a
@@ -48,7 +48,7 @@ production system.
 
 ---
 
-# How to Observe production
+## How to Observe production
 
 - Code compiled
 - Passed all tests
@@ -57,7 +57,7 @@ production system.
 
 **Now what?**
 
-notes:
+Note:
 
 Story Time:
 
@@ -69,13 +69,13 @@ Story Time:
 
 ---
 
-# Check the logs
+## Check the logs
 
 - What do we search for?
 - Can you search, k8s?
 - What Server are those logs on?
 
-notes:
+Note:
 
 - You ssh to a server
 - You grep the logs
@@ -83,9 +83,9 @@ notes:
 
 or your lucky you've central logs
 
----
+===
 
-# Understanding the logs
+## Understanding the logs
 
 I can see my log but I dont know whats happening
 
@@ -103,9 +103,9 @@ Tue Feb 18 2020 16:49:35 GMT+0000 (UTC) Connection accepted.
 Tue Feb 18 2020 16:49:35 GMT+0000 (UTC) PID=97 STARTED on behalf of user localhost
 ```
 
----
+===
 
-# Structured Logs to the rescue
+## Structured Logs to the rescue
 
 Logs from WeTTy Version 1.3.1
 
@@ -133,23 +133,23 @@ Logs from WeTTy Version 1.3.1
 {"code":255,"pid":4038178,"level":"info","message":"Process exited","label":"Wetty","timestamp":"2020-02-18T17:55:54.433Z"}
 ```
 
----
+===
 
-# So Why JSON Logs
+## So Why JSON Logs
 
 - No Special parsing
 - Understood by everyone
 - Search on key value
 - Can use traditional log messages mixed with structured data
 
-refs:
+Refs:
 
 - https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html
 - https://docs.timber.io/guides/structured-logging-best-practices
 
 ---
 
-# So lets quantify things
+### So lets quantify things
 
 Graphite Tagged metric format
 
@@ -160,7 +160,7 @@ service.events_count;state=scheduled;backend=mysql;env=prod 90.0 1582136043
 service.build_info;branch=master;goversion=go1.13.4;version=6.5.1 1 1582136043
 ```
 
-notes: Known Questions you want to ask the service Metrics Allow you to produce
+Note: Known Questions you want to ask the service Metrics Allow you to produce
 Known State of your system at a specific time. These can be used to:
 
 - see is a system healthy
@@ -169,9 +169,9 @@ Known State of your system at a specific time. These can be used to:
 
 ---
 
-# Demo time
+## Demo time
 
-## PSA
+### PSA
 
 There are other metrics and logging systems.
 
@@ -183,11 +183,11 @@ There are other metrics and logging systems.
 
 # Questions?
 
----
+===
 
-# Demonware
+### Demonware
 
-```
+```text
                  D8888D         ZI8                 8IZ
                  7****7         ?**I8             8I**?
                  7*??*7         7*?**78         87**?*$
@@ -210,8 +210,8 @@ There are other metrics and logging systems.
       DZ7I???I$O  $III$         NIIIIII8       8IIIIIIN
 ```
 
-## We have internships
+#### We have internships
 
 Emails: jobs@demonware.net
 
-notes: c, python interships
+Note: c, python interships

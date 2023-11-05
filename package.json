@@ -17,7 +17,7 @@
     "email": "butlerx@notthe.cloud",
     "url": "https://cianbutler.ie"
   },
-  "homepage": "https://github.com/butlerx/presentation",
+  "homepage": "https://butlerx.github.io/presentation/",
   "dependencies": {
     "reveal.js": "^4.6.1"
   },
@@ -25,7 +25,6 @@
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-img": "^3.1.1",
     "@11ty/eleventy-plugin-bundle": "^1.0.4",
-    "markdown-it-revealjs": "^1.0.0",
     "prettier": "^3.0.3"
   }
 }
