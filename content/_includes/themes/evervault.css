@@ -1,19 +1,199 @@
-section .as-dark-background,
-section .as-dark-background h1,
-section .as-dark-background h2,
-section .as-dark-background h3,
-section .as-dark-background h4,
-section .as-dark-background h5,
-section .as-dark-background h6 {
-  color: #fff;
+:root {
+  --system-fonts: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  --font-family-base: '__Inter_e66fe9', '__Inter_Fallback_e66fe9',
+    var(--system-fonts);
+  --font-family-headings: '__roobert_30c87b', '__roobert_Fallback_30c87b',
+    var(--system-fonts);
+  --font-family-monospace: '__Roboto_Mono_829659',
+    '__Roboto_Mono_Fallback_829659', monospace;
+
+  /* Primary */
+  --primary: #63e;
+  --primary-light: #8e64ff;
+
+  /* Grey */
+  --grey-00: #ffffff;
+  --grey-10: #f4f4ff;
+  --grey-20: #ececfb;
+  --grey-30: #dfe1f4;
+  --grey-40: #babcd2;
+  --grey-50: #9fa2b9;
+  --grey-60: #5e6077;
+  --grey-70: #383a4d;
+  --grey-80: #2a2b3a;
+  --grey-90: #171825;
+  --grey-100: #010314;
+
+  /* Error */
+  --error: #e23453;
+
+  /* Background & Border REMOVE */
+  --bg-body: var(--grey-100);
+  --border-color: var(--grey-80);
+
+  /* Effects  */
+  --material-effect: 0 0 0 2px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 0.5px 0 rgba(255, 255, 255, 0.5);
+
+  /* Text */
+  --text-muted: var(--grey-40);
+  --text-body: var(--grey-30);
+  --text-headings: #fff;
+  --text-links: var(--primary-60);
+  --text-links-hover: var(--primary-40);
+  --text-code: var(--text-headings);
+  --text-ul-bullet: var(--green-medium);
+  --text-ol-bullet: var(--green-medium);
+  --text-ol-bullet-color: var(--green-darkest);
+  --text-highlight: rgba(136, 89, 255, 0.2);
+  --text-highlight-hover: rgba(136, 89, 255, 0.35);
+
+  /* Buttons */
+  --btn-bg-glow: rgba(255, 255, 255, 0.4);
+  --btn-bg-primary: rgba(133, 92, 241, 0.8);
+  --btn-bg-primary-hover: var(--btn-bg-primary);
+  --btn-color-primary: #fff;
+  --btn-bg-secondary: rgba(52, 44, 65, 0.8);
+  --btn-bg-secondary-hover: var(--btn-bg-secondary);
+  --btn-color-secondary: var(--text-headings);
+  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 1px 0 rgba(0, 0, 0, 0.05);
+
+  /* Misc */
+  --index-ventures: #fff;
+  --sequoia: #fff;
+  --kleiner-perkins: #fff;
+
+  /*
+   * Typography
+   */
+
+  /* Font weight */
+  --fw-hair: 100;
+  --fw-thin: 200;
+  --fw-extralight: 250;
+  --fw-light: 300;
+  --fw-book: 350;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 800;
+  --fw-heavy: 900;
+  --fw-h1: var(--fw-medium);
+  --fw-h2: var(--fw-medium);
+  --fw-h3: var(--fw-medium);
+  --fw-h4: var(--fw-medium);
+  --fw-h5: var(--fw-medium);
+  --fw-h6: var(--fw-medium);
+
+  /* Font sizes */
+  --font-size-root: 16px;
+  --font-size-base: 16px;
+  --font-size-sm: 0.7rem;
+  --font-size-xs: 0.6rem;
+  --font-size-xxs: 0.5rem;
+  --font-size-h1: 4.25rem;
+  --font-size-h2: 3.5rem;
+  --font-size-h3: 1.6rem;
+  --font-size-h4: 1.2rem;
+  --font-size-h5: 1.05rem;
+  --font-size-h6: 0.9rem;
+
+  @media (max-width: 1199px) {
+    --font-size-h1: 3.5rem;
+    --font-size-h2: 2.5rem;
+  }
+
+  @media (max-width: 999px) {
+    --font-size-root: 15px;
+    --font-size-h1: 3rem;
+    --font-size-h2: 2rem;
+  }
+
+  /* Line heights */
+  --line-height-base: 1.55;
+  --line-height-sm: 1.428571429;
+  --line-height-xs: 1.142857143;
+  --line-height-h1: 1;
+  --line-height-h2: 1.05;
+  --line-height-h3: 1.25;
+  --line-height-h4: 1.3;
+  --line-height-h5: 1.142857143;
+  --line-height-h6: 1.555555556;
+
+  /* Margins */
+  --margin-bottom-base: var(--token-20);
+  --headings-margin-bottom: var(--margin-bottom-base);
+
+  /* Link decoration */
+  --link-decoration: none;
+  --link-hover-decoration: none;
+
+  /* Layout & Spacing */
+  --width: 90vw;
+  --max-width: 1200px;
+  --token-02: 0.1rem;
+  --token-04: 0.2rem;
+  --token-08: 0.4rem;
+  --token-12: 0.6rem;
+  --token-16: 0.8rem;
+  --token-20: 1rem;
+  --token-24: 1.2rem;
+  --token-32: 1.6rem;
+  --token-40: 2rem;
+  --token-48: 2.4rem;
+  --token-56: 2.8rem;
+  --token-64: 3.2rem;
+  --token-72: 3.6rem;
+  --token-80: 4rem;
+  --token-88: 4.4rem;
+  --token-96: 4.8rem;
+  --token-104: 5.2rem;
+  --token-112: 5.6rem;
+  --token-120: 6rem;
+  --token-128: 6.4rem;
+  --token-156: 7.8rem;
+
+  /* Radius */
+  --radius-round: 50%;
+  --radius-lg: var(--token-32);
+  --radius-md: var(--token-24);
+  --radius-sm: var(--token-12);
+  --radius-xs: var(--token-08);
+  --radius-xxs: var(--token-04);
+
+  /* Box Shadows */
+  --shadow-sm: rgba(50, 50, 93, 0.08) 0 8px 18px -4px;
+  --shadow-md: rgba(50, 50, 93, 0.25) 0 12px 28px -4px;
+
+  /* Transform */
+  --iso-rotation: rotateX(60deg) rotateY(0deg) rotateZ(45deg);
+  --perspective: 1600px;
+
+  /* Transition */
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
 }
 
-/*********************************************
- * GLOBAL STYLES
- *********************************************/
-body {
-  background: #fff;
-  background-color: #fff;
+.reveal-viewport {
+  background-color: var(--bg-body);
+  background-image: linear-gradient(
+      to bottom,
+      var(--bg-body-rgba) 0,
+      var(--bg-body-alt) 40%,
+      var(--bg-body-rgba) 100%
+    ),
+    linear-gradient(to top, var(--bg-body-alt) 0, var(--bg-body-rgba) 100%);
+  background-position: top, bottom;
+  background-size:
+    100% 1600px,
+    100% 800px;
+  background-repeat: no-repeat;
+  color: var(--text-body);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-base);
 }
 
 body::after {
@@ -28,23 +208,24 @@ body::after {
 }
 
 .reveal {
+  height: 100%;
   background:
-    url('./redbrick-logo.png') bottom 32px left 32px/256px no-repeat,
-    linear-gradient(to bottom, #f0ebe7 20px, #f0ebe7 100%);
-  font-family: 'myriad-pro', Helvetica, sans-serif;
+    url('./evervault-logo.svg') bottom 32px left 32px/256px no-repeat,
+    radial-gradient(
+      140% 107.13% at 50% 10%,
+      transparent 37.41%,
+      #63e 69.27%,
+      #fff 100%
+    );
+  border-radius: var(--token-48);
+  align-items: center;
   font-size: 38px;
   font-weight: normal;
-  color: #000;
+  color: var(--grey-20);
 }
 
 .reveal sup {
   font-size: 60%;
-}
-
-::selection {
-  color: #fff;
-  background: #56caff;
-  text-shadow: none;
 }
 
 ::-moz-selection {
@@ -69,12 +250,9 @@ body::after {
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #000;
-  font-family: 'myriad-pro', Helvetica, sans-serif;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: normal;
-  text-transform: uppercase;
   text-shadow: none;
   word-wrap: break-word;
 }
