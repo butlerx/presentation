@@ -12,25 +12,23 @@
       content="{{ description or metadata.description }}"
     />
 
-    <link rel="stylesheet" href="{{ '/assets/reveal/reset.css' | url }}" />
-    <link rel="stylesheet" href="{{ '/assets/reveal/reveal.css' | url }}" />
+    <link rel="stylesheet" href="/assets/reveal/reset.css" />
+    <link rel="stylesheet" href="/assets/reveal/reveal.css" />
 
-    {% set theme = slideOptions.theme + ".css" if (slideOptions.theme) else "black.css" %}
+    {% set theme = slideOptions.theme + ".css" if (slideOptions.theme) else
+    "black.css" %}
+    <link rel="stylesheet" href="{{ '/assets/reveal/theme/' + theme }}" />
     <link
       rel="stylesheet"
-      href="{{ '/assets/reveal/theme/' + theme | url }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ '/assets/reveal/plugin/highlight/monokai.css' | url }}"
+      href="/assets/reveal/plugin/highlight/monokai.css"
     />
   </head>
   <body>
     {{ content | safe }}
-    <script src="{{ '/assets/reveal/reveal.js' | url }}"></script>
-    <script src="{{ '/assets/reveal/plugin/highlight/highlight.js' | url }}"></script>
-    <script src="{{ '/assets/reveal/plugin/notes/notes.js' | url }}"></script>
-    <script src="{{ '/assets/reveal/plugin/zoom/zoom.js' | url }}"></script>
+    <script src="/assets/reveal/reveal.js"></script>
+    <script src="/assets/reveal/plugin/highlight/highlight.js"></script>
+    <script src="/assets/reveal/plugin/notes/notes.js"></script>
+    <script src="/assets/reveal/plugin/zoom/zoom.js"></script>
     <script>
       Reveal.initialize({
         controls: true,

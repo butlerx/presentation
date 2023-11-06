@@ -15,6 +15,7 @@ module.exports = (config) => {
     templateFormats: ['md', 'njk', 'html'],
     dataTemplateEngine: 'njk',
     htmlTemplateEngine: 'njk',
+    pathPrefix: '/presentation/',
     dir: {
       input: 'content', // default: "."
       output: '_site',
