@@ -15,17 +15,11 @@
     <link rel="stylesheet" href="{{ '/assets/reveal/reset.css' | url }}" />
     <link rel="stylesheet" href="{{ '/assets/reveal/reveal.css' | url }}" />
 
-    {%- if (slideOptions.theme) -%} {% set theme = "public/css/" +
-    slideOptions.theme + ".css" %} {%- css %}{% include theme %}{% endcss %}
-    <style>
-      {% getBundle "css" %}
-    </style>
-    {%- else -%}
+    {% set theme = slideOptions.theme + ".css" if (slideOptions.theme) else "black.css" %}
     <link
       rel="stylesheet"
-      href="{{ '/assets/reveal/theme/black.css' | url }}"
+      href="{{ '/assets/reveal/theme/' + theme | url }}"
     />
-    {%- endif -%}
     <link
       rel="stylesheet"
       href="{{ '/assets/reveal/plugin/highlight/monokai.css' | url }}"

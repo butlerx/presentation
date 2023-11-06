@@ -5,6 +5,7 @@ module.exports = (config) => {
   // This enable all the dependency libraries inside the `assets` folder
   config.addPassthroughCopy({
     'node_modules/reveal.js/dist': 'assets/reveal/',
+    'content/_includes/themes': 'assets/reveal/theme/',
     'node_modules/reveal.js/plugin': 'assets/reveal/plugin',
   });
 
@@ -27,25 +28,10 @@ module.exports = (config) => {
   });
 };
 
-const isVerticalSeparator = (token) => token.type === 'inline' && token.content === '===';
-const isHorizontalSeparator = (token) => token.type === 'hr' && token.markup === '---';
-const NOTES_SEPARATOR = new RegExp(/^s*notes?:/, 'i');
-const isNotesSeparator = (token) =>
-  Boolean(token.type === 'inline' && token.content.match(NOTES_SEPARATOR));
-const isSep = (token) => isHorizontalSeparator(token) || isVerticalSeparator(token);
-
 const renderOpening = (tokens, idx, options, env, slf) =>
   `<${tokens[idx].tag}${slf.renderAttrs(tokens[idx])}>`;
 
 const renderClosing = (tokens, idx, options, env, slf) => `</${tokens[idx].tag}>`;
-
-function nextDivider(tokens, start) {
-  for (let i = start; i < tokens.length; i++) {
-    if (isSep(tokens[i]) || isNotesSeparator(tokens[i])) {
-      return i;
-    }
-  }
-}
 
 function previousSlideOpen(tokens, before) {
   for (let i = before - 1; i >= 0; i--) {
@@ -95,7 +81,30 @@ function notesOpen(state) {
 
 const notesClose = (state) => new state.Token('notes_close', 'aside', -1);
 
-function markdownItRevealjs(md, options) {
+function markdownItRevealjs(md, options = {}) {
+  const {
+    verticalSeparator = '===',
+    horizontalSeparator = '---',
+    notesSeparator = /^s*notes?:/,
+  } = options;
+
+  const isVerticalSeparator = (token) =>
+    token.type === 'inline' && token.content === verticalSeparator;
+  const isHorizontalSeparator = (token) =>
+    token.type === 'hr' && token.markup === horizontalSeparator;
+  const NOTES_SEPARATOR = new RegExp(notesSeparator, 'i');
+  const isNotesSeparator = (token) =>
+    Boolean(token.type === 'inline' && token.content.match(NOTES_SEPARATOR));
+  const isSep = (token) => isHorizontalSeparator(token) || isVerticalSeparator(token);
+
+  function nextDivider(tokens, start) {
+    for (let i = start; i < tokens.length; i++) {
+      if (isSep(tokens[i]) || isNotesSeparator(tokens[i])) {
+        return i;
+      }
+    }
+  }
+
   md.renderer.rules.pres_open = renderOpening;
   md.renderer.rules.pres_close = renderClosing;
   md.renderer.rules.slide_open = renderOpening;

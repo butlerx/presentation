@@ -1,6 +1,6 @@
 .reveal {
   background:
-    url('/assets/logo.png') bottom 32px left 32px/256px no-repeat,
+    url('./redbrick-logo.png') bottom 32px left 32px/256px no-repeat,
     linear-gradient(to bottom, #f0ebe7 20px, #f0ebe7 100%);
 }
 .reveal sup {

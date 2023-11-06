@@ -4,7 +4,6 @@ const pluginReveal = require('./eleventy.config.reveal.js');
 const pluginImages = require('./eleventy.config.images.js');
 
 module.exports = (config) => {
-  config.addPassthroughCopy({ './public/': '/' });
   config.addWatchTarget('content/**/*.{svg,webp,png,jpeg}');
   config.addPlugin(pluginReveal);
   config.addPlugin(pluginImages);

@@ -5,7 +5,7 @@ eleventyExcludeFromCollections: true
 
 {% set slidesCount = collections.all | length %}
 
-<h1>{{ slidesCount }} talks{% if slidesCount != 1 %}s{% endif %}</h1>
+<h1>{{ slidesCount }} talk{% if slidesCount != 1 %}s{% endif %}</h1>
 
 <ol reversed class="slidelist">
   {% for slide in collections.all | reverse %}
@@ -16,8 +16,13 @@ eleventyExcludeFromCollections: true
       >{% endif %}</a
     >
     {% if slide.data.tags %}
-    <div class="slidelist-tag">{{ slide.data.tags }}</div>
-    {% endif %} {% if slide.data.description %}
+    <div class="slidelist-tag">
+    {% for tag in slide.data.tags %}
+    <div class="slide-metadata">{{ tag }}</div>
+    {% endfor %}
+    </div>
+    {% endif %}
+    {% if slide.data.description %}
     <p class="slidelist-description">{{ slide.data.description }}</p>
     {% endif %}
   </li>
