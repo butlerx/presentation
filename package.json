@@ -6,7 +6,8 @@
   "scripts": {
     "start": "eleventy --serve --quiet",
     "build": "NODE_ENV=production eleventy",
-    "format": "prettier --write ."
+    "fmt": "prettier --write .",
+    "clean": "rm -rf _site"
   },
   "repository": {
     "type": "git",
