@@ -28,8 +28,7 @@ body::after {
 }
 
 .reveal {
-  background:
-    url('./redbrick-logo.png') bottom 32px left 32px/256px no-repeat,
+  background: url('./redbrick-logo.png') bottom 32px left 32px/256px no-repeat,
     linear-gradient(to bottom, #f0ebe7 20px, #f0ebe7 100%);
   font-family: 'myriad-pro', Helvetica, sans-serif;
   font-size: 38px;

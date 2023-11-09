@@ -120,9 +120,11 @@ let span = span!(Level::info, "my span");
 // Enter the span, returning a guard object.
 let _enter = span.enter();
 
-let json = info_span!("json.parse").in_scope(|| serde_json::from_slice(&buf))?;
-// Any trace events that occur before the guard is dropped will occur
-// within the span.
+let json = info_span!("json.parse").in_scope(||
+    serde_json::from_slice(&buf)
+)?;
+// Any trace events that occur before the guard is
+// dropped will occur within the span.
 
 // Dropping the guard will exit the span.
 ```
@@ -139,8 +141,8 @@ Notes:
 ```rust
 #[tracing::instrument]
 pub fn my_function(my_arg: usize) {
-    // This event will be recorded inside a span named `my_function` with the
-    // field `my_arg`.
+    // This event will be recorded inside a span named `my_function`
+    // with the field `my_arg`.
     info!("inside my_function!");
 }
 ```

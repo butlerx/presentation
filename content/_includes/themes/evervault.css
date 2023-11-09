@@ -186,9 +186,7 @@
     ),
     linear-gradient(to top, var(--bg-body-alt) 0, var(--bg-body-rgba) 100%);
   background-position: top, bottom;
-  background-size:
-    100% 1600px,
-    100% 800px;
+  background-size: 100% 1600px, 100% 800px;
   background-repeat: no-repeat;
   color: var(--text-body);
   font-size: var(--font-size-base);
@@ -209,8 +207,7 @@ body::after {
 
 .reveal {
   height: 100%;
-  background:
-    url('./evervault-logo.svg') bottom 32px left 32px/256px no-repeat,
+  background: url('./evervault-logo.svg') bottom 32px left 32px/256px no-repeat,
     radial-gradient(
       140% 107.13% at 50% 10%,
       transparent 37.41%,
