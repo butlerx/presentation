@@ -16,19 +16,25 @@ Overview on opentelemetry and rust tracing and how we can leverage them.
 
 ---
 
-## Opentelemetry
+![Opentelemetry](https://opentelemetry.io/img/logos/opentelemetry-horizontal-color.svg)
 
 ===
 
 ## Traces
 
-- Trace IDs
-- Resource Attributes
+![traces are fancy logs](https://www.honeycomb.io/wp-content/uploads/2023/05/image-6.png)
+
+<!-- source: honeycomb.io -->
+
+- Unique Trace IDs for _1_ user action
+  - shared across multiple services
 
 ===
 
 ## Spans
 
+- Resource Attributes
+  - shared by spans in a service
 - Span Attributes
   - High Cardinality data for each span.
 - Events
@@ -37,6 +43,7 @@ Overview on opentelemetry and rust tracing and how we can leverage them.
 Notes:
 
 - A trace is made up of multiple spans
+  - Can be 1 span from every service or mutiple spans from 1 service
 - Spans can be expensive to create and store so dont need to be created for
   every function
 
