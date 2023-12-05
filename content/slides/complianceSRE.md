@@ -13,13 +13,13 @@ slideOptions:
 
 ===
 
-![Our goal for this talk](/img/compliance.jpg)
+![Our goal for this talk](/img/complianceSRE/compliance-and-sre.jpg)
 
 Or how building compliant systems builds stable systems
 
 ===
 
-![screenshot of press release of SEC Charges SolarWinds and Chief Information Security Officer with Fraud, Internal Control Failures ](/img/compliance/sec-charges.png)
+![screenshot of press release of SEC Charges SolarWinds and Chief Information Security Officer with Fraud, Internal Control Failures ](/img/complianceSRE/sec-charges.png)
 
 ---
 
