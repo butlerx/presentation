@@ -3,8 +3,11 @@ const pluginBundle = require('@11ty/eleventy-plugin-bundle');
 const pluginReveal = require('./eleventy.config.reveal.js');
 const pluginImages = require('./eleventy.config.images.js');
 
+const imageTypes = '';
+
 module.exports = (config) => {
-  config.addWatchTarget('content/**/*.{svg,webp,png,jpeg}');
+  config.addWatchTarget('content/**/*.{svg,webp,png,jpeg,jpg}');
+  config.addPassthroughCopy('content/img');
   config.addPlugin(pluginReveal);
   config.addPlugin(pluginImages);
   config.addPlugin(EleventyHtmlBasePlugin);

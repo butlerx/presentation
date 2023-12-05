@@ -98,7 +98,7 @@ use tracing::{event, info, Level};
 // records an event outside of any span context:
 event!(Level::INFO, "something happened");
 
-info!(foo=blah, "something else happened"
+info!(foo=blah, "something else happened")
 
 info!(target:"otel::tracing", "Only exported to tracing")
 ```
