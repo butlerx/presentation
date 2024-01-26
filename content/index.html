@@ -26,7 +26,7 @@ eleventyExcludeFromCollections: true
       {% endfor %}
     </div>
     {% endif %} {% if slide.data.description %}
-    <p class="slidelist-description">{{ slide.data.description }}</p>
+    <span class="slidelist-description">{{ slide.data.description | markdown|safe }}</span>
     {% endif %}
   </li>
   {% endfor %}
