@@ -32,9 +32,10 @@ Evervault offers tooling for data security and compliance.
 
 Notes:
 
-At evervault we offer tooling to allow our users to guarantee that data is
+At Evervault we offer tooling to allow our users to guarantee that data is
 secure. We have a number of primitives to do this with. At the Core of all the
-primitives are Services running in enclaves.
+primitives are Services running in enclaves. These are AWS Nitro enclaves which
+offer fully isolated VM and attestation capabilities.
 
 ---
 
