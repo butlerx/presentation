@@ -1,5 +1,7 @@
 ---
 title: Compliance, it's just being an SRE
+layout: slides
+date: 2023-12-05T10:28:18Z
 description:
   Does this talk contain instructions on how to bend the forces of compliance to
   your will? Does it explore the slow creeping horror that... we're on the same

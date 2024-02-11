@@ -1,5 +1,7 @@
 ---
 title: The ups and downs of running enclaves in production
+layout: slides
+date: 2024-01-26T16:26:41Z
 description: |-
   At Evervault we've been running production workloads in enclaves for 3 years and are building a platform to allow others to onboard and use enclaves easily. In the talk, I'll cover our experience scaling enclaves and how we load-tested them to optimise our workloads.
 

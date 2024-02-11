@@ -1,7 +1,9 @@
 ---
 title: Intro to Docker
 description: An introduction to using docker for redbrick admin talks
-tags: redbrick, docker
+tags: [redbrick, docker]
+layout: slides
+date: 2020-02-05T11:25:00Z
 slideOptions:
   theme: redbrick
 ---
