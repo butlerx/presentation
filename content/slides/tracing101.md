@@ -2,7 +2,6 @@
 title: Tracing 101 with OTEL and rust
 description:
   Overview of tracing core concepts in opentelemetry and how to use them in rust
-layout: slides
 date: 2023-11-06T11:05:00Z
 slideOptions:
   theme: evervault

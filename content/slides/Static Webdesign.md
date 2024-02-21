@@ -3,7 +3,6 @@ title: Static Webdesign
 tags: [redbrick, hugo, static-webdesign]
 description:
   Talk for redbrick on web development using hugo to create a static site
-layout: slides
 date: 2020-02-05T11:25:00Z
 slideOptions:
   theme: redbrick

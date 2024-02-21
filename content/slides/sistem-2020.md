@@ -7,7 +7,6 @@ description: >-
   programs and how to use it.
 author: Cian Butler <butlerx@notthe.cloud>
 link: github.com/butlerx
-layout: slides
 date: 2020-02-20T11:25:00Z
 ---
 
