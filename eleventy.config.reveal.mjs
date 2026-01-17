@@ -1,7 +1,7 @@
-const path = require('node:path');
-const prettier = require('prettier');
+import path from 'node:path';
+import prettier from 'prettier';
 
-module.exports = (config) => {
+export default function reveal(config) {
   // This enable all the dependency libraries inside the `assets` folder
   config.addPassthroughCopy({
     'node_modules/reveal.js/dist': 'assets/reveal/',
@@ -21,17 +21,17 @@ module.exports = (config) => {
         // Strip leading period from extension and use as the Prettier parser.
         const parser = extname.replace(/^./, '');
         return prettier.format(content, { parser });
-
       default:
         return content;
     }
   });
-};
+}
 
 const renderOpening = (tokens, idx, options, env, slf) =>
   `<${tokens[idx].tag}${slf.renderAttrs(tokens[idx])}>`;
 
-const renderClosing = (tokens, idx, options, env, slf) => `</${tokens[idx].tag}>`;
+const renderClosing = (tokens, idx, options, env, slf) =>
+  `</${tokens[idx].tag}>`;
 
 function previousSlideOpen(tokens, before) {
   for (let i = before - 1; i >= 0; i--) {
@@ -49,7 +49,8 @@ function presentationOpen(state) {
   return token;
 }
 
-const presentationClose = (state) => new state.Token('pres_close', 'section', -1);
+const presentationClose = (state) =>
+  new state.Token('pres_close', 'section', -1);
 
 function slidesOpen(state) {
   const token = new state.Token('slides_open', 'div', 1);
@@ -95,7 +96,8 @@ function markdownItRevealjs(md, options = {}) {
   const NOTES_SEPARATOR = new RegExp(notesSeparator, 'i');
   const isNotesSeparator = (token) =>
     Boolean(token.type === 'inline' && token.content.match(NOTES_SEPARATOR));
-  const isSep = (token) => isHorizontalSeparator(token) || isVerticalSeparator(token);
+  const isSep = (token) =>
+    isHorizontalSeparator(token) || isVerticalSeparator(token);
 
   function nextDivider(tokens, start) {
     for (let i = start; i < tokens.length; i++) {
