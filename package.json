@@ -2,7 +2,7 @@
   "name": "Presentations",
   "version": "1.0.0",
   "description": "Slide decks for talks ive given over many years",
-  "main": "eleventy.config.js",
+  "main": "eleventy.config.mjs",
   "scripts": {
     "start": "eleventy --serve --quiet",
     "build": "NODE_ENV=production eleventy",
@@ -20,12 +20,14 @@
   },
   "homepage": "https://butlerx.github.io/presentation/",
   "dependencies": {
-    "reveal.js": "^4.6.1"
+    "reveal.js": "^5.2.1"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
-    "@11ty/eleventy-img": "^3.1.8",
-    "@11ty/eleventy-plugin-bundle": "^1.0.4",
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-img": "^6.0.4",
+    "@11ty/eleventy-plugin-bundle": "^3.0.7",
+    "@11ty/eleventy-upgrade-help": "^3.0.0",
+    "markdown-it": "^14.1.0",
     "prettier": "^3.0.3"
   }
 }

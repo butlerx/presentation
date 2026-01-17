@@ -1,7 +1,9 @@
 name: Deploy static content to Pages
 on:
   push:
-    branches: ['master', 'main']
+    branches:
+      - 'master'
+      - 'main'
   workflow_dispatch:
 permissions:
   contents: read
@@ -11,7 +13,6 @@ concurrency:
   group: 'pages'
   cancel-in-progress: false
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -34,7 +35,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           path: '_site'
       - name: Deploy to GitHub Pages
