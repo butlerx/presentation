@@ -9,36 +9,62 @@
   --font-family-monospace:
     '__Roboto_Mono_829659', '__Roboto_Mono_Fallback_829659', monospace;
 
-  /* Primary - Cloudsmith brand colors */
-  --primary: #7d3cff;
-  --primary-light: #9d5fff;
+  /* Cloudsmith Brand Colors - Dark Theme */
+  --brand-color-white: #fff;
+  --brand-color-black: #0a1b2a;
+  --brand-color-blue-7: #2a6fe1;
+  --brand-color-blue-8: #134596;
+  --brand-color-grey-2: #e1eaf3;
+  --brand-color-grey-4: #a5b7c5;
+  --brand-color-grey-7: #5b798a;
+  --brand-color-grey-8: #26465b;
+  --brand-color-grey-9: #092f45;
+  --brand-color-grey-10: #041e2e;
+  --brand-color-purple-6: #915eff;
+  --brand-color-purple-7: #7a52db;
+  --base-color-grey-1000: #031c2b;
 
-  /* Grey - Adjusted for Cloudsmith's darker theme */
-  --grey-00: #ffffff;
+  /* Primary Colors */
+  --primary: var(--brand-color-purple-6);
+  --primary-light: #af8fff;
+  --primary-dark: var(--brand-color-purple-7);
+  --accent-blue: var(--brand-color-blue-7);
+  --accent-blue-hover: var(--brand-color-blue-8);
+
+  /* Grey Scale */
+  --grey-00: var(--brand-color-white);
   --grey-10: #f8f8fc;
-  --grey-20: #e8e8f5;
-  --grey-30: #d0d2e8;
-  --grey-40: #a8aac8;
-  --grey-50: #8a8da8;
-  --grey-60: #4a4c68;
-  --grey-70: #2a2c42;
-  --grey-80: #1a1c2e;
-  --grey-90: #0f1120;
-  --grey-100: #06070f;
+  --grey-20: var(--brand-color-grey-2);
+  --grey-30: #c5d4de;
+  --grey-40: var(--brand-color-grey-4);
+  --grey-50: #8ea5b5;
+  --grey-60: #768fa2;
+  --grey-70: var(--brand-color-grey-7);
+  --grey-80: var(--brand-color-grey-8);
+  --grey-90: var(--brand-color-grey-9);
+  --grey-100: var(--brand-color-grey-10);
 
   /* Error */
-  --error: #e23453;
+  --error: #ff6183;
 
   /* Background & Border */
-  --bg-body: #06070f;
-  --bg-body-rgba: rgba(6, 7, 15, 1);
-  --bg-body-alt: rgba(15, 17, 32, 1);
+  --bg-body: var(--grey-100);
+  --bg-body-rgba: rgba(4, 30, 46, 1);
+  --bg-body-alt: rgba(9, 47, 69, 1);
+  --bg-code: rgba(9, 47, 69, 0.5);
+  --bg-code-block: rgba(9, 47, 69, 0.8);
   --border-color: var(--grey-80);
 
   /* Grid variables */
   --grid-size: 40px;
-  --grid-color: rgba(125, 60, 255, 0.15);
-  --grid-dot-size: 1px;
+  --grid-color: rgba(9, 47, 69, 0.3);
+
+  /* Overlay Colors */
+  --color-overlay-purple: rgba(145, 94, 255, 0.3);
+  --color-overlay-purple-light: rgba(145, 94, 255, 0.4);
+  --color-border-purple: rgba(145, 94, 255, 0.2);
+  --color-overlay: rgba(9, 47, 69, 0.85);
+  --color-overlay-white: rgba(255, 255, 255, 0.05);
 
   /* Effects */
   --material-effect:
@@ -47,27 +73,34 @@
 
   /* Text */
   --text-muted: var(--grey-40);
+  --text-subtle: var(--grey-60);
   --text-body: var(--grey-30);
-  --text-headings: #fff;
-  --text-links: #7d3cff;
-  --text-links-hover: #9d5fff;
+  --text-headings: var(--grey-00);
+  --text-links: var(--primary);
+  --text-links-hover: var(--primary-light);
   --text-code: var(--text-headings);
-  --text-ul-bullet: #7d3cff;
-  --text-ol-bullet: #7d3cff;
+  --text-ul-bullet: var(--primary);
+  --text-ol-bullet: var(--primary);
   --text-ol-bullet-color: var(--grey-00);
-  --text-highlight: rgba(125, 60, 255, 0.2);
-  --text-highlight-hover: rgba(125, 60, 255, 0.35);
+  --text-highlight: rgba(145, 94, 255, 0.1);
+  --text-highlight-hover: rgba(145, 94, 255, 0.2);
 
   /* Buttons */
   --btn-bg-glow: rgba(255, 255, 255, 0.4);
-  --btn-bg-primary: rgba(125, 60, 255, 0.9);
-  --btn-bg-primary-hover: rgba(157, 95, 255, 1);
-  --btn-color-primary: #fff;
-  --btn-bg-secondary: rgba(42, 44, 66, 0.8);
-  --btn-bg-secondary-hover: rgba(58, 60, 86, 0.9);
+  --btn-bg-primary: rgba(145, 94, 255, 0.9);
+  --btn-bg-primary-hover: rgba(175, 143, 255, 1);
+  --btn-color-primary: var(--grey-00);
+  --btn-bg-secondary: rgba(38, 70, 91, 0.8);
+  --btn-bg-secondary-hover: rgba(91, 121, 138, 0.9);
   --btn-color-secondary: var(--text-headings);
   --btn-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.05);
+
+  /* Shadows */
+  --shadow-code: 0px 0px 6px rgba(0, 0, 0, 0.3);
+  --shadow-blockquote: 0px 0px 2px var(--color-overlay-purple);
+  --shadow-image: 0 0 10px rgba(0, 0, 0, 0.15);
+  --shadow-image-hover: 0 0 20px var(--color-overlay-purple-light);
 
   /* Typography */
   --fw-hair: 100;
@@ -156,13 +189,17 @@
   --token-128: 6.4rem;
   --token-156: 7.8rem;
 
-  /* Radius */
+  /* Border Radius */
   --radius-round: 50%;
   --radius-lg: var(--token-32);
   --radius-md: var(--token-24);
   --radius-sm: var(--token-12);
   --radius-xs: var(--token-08);
   --radius-xxs: var(--token-04);
+  --border-radius-default: 12px;
+  --border-radius-large: 16px;
+  --border-radius-small: 6px;
+  --border-radius-x-small: 4px;
 
   /* Box Shadows */
   --shadow-sm: rgba(50, 50, 93, 0.08) 0 8px 18px -4px;
@@ -174,6 +211,9 @@
 
   /* Transition */
   --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --transition-default: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+  --transition-fast: 0.2s ease-in-out;
 }
 
 .reveal-viewport {
@@ -183,9 +223,12 @@
   font-size: var(--font-size-base);
   font-family: var(--font-family-base);
   line-height: var(--line-height-base);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Grid background pattern */
+/* Grid background pattern - applied to reveal container for proper layering */
 .reveal-viewport::before {
   content: '';
   position: absolute;
@@ -193,42 +236,28 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image:
-    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size);
-  background-position: 0 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Subtle gradient overlay for depth */
-.reveal-viewport::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    ellipse 100% 80% at 50% 20%,
-    transparent 30%,
-    rgba(6, 7, 15, 0.4) 70%,
-    rgba(6, 7, 15, 0.8) 100%
-  );
+  background-image: url('./cloudsmith-grid.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   pointer-events: none;
   z-index: 1;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 body::after {
-  bottom: 16px;
-  color: #666;
+  bottom: var(--token-16);
+  color: var(--text-subtle);
   content: attr(data-bg-text);
   display: block;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   line-height: 1;
   position: absolute;
-  right: 8px;
+  right: var(--token-08);
   z-index: 10;
 }
 
@@ -236,12 +265,25 @@ body::after {
   height: 100%;
   position: relative;
   z-index: 2;
-  background: url('./cloudsmith-logo.svg') bottom 32px left 32px/256px no-repeat;
-  border-radius: var(--token-48);
+  background: transparent;
+  border-radius: var(--border-radius-default);
   align-items: center;
-  font-size: 38px;
-  font-weight: normal;
+  font-size: 32px;
+  font-weight: var(--fw-regular);
   color: var(--grey-20);
+}
+
+.reveal::after {
+  content: '';
+  position: absolute;
+  bottom: var(--token-32);
+  left: var(--token-32);
+  width: 256px;
+  height: 64px;
+  background: url('./cloudsmith-logo.svg') no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 10;
 }
 
 .reveal sup {
@@ -249,20 +291,20 @@ body::after {
 }
 
 ::-moz-selection {
-  color: #fff;
-  background: #7d3cff;
+  color: var(--grey-00);
+  background: var(--primary);
   text-shadow: none;
 }
 
 ::selection {
-  color: #fff;
-  background: #7d3cff;
+  color: var(--grey-00);
+  background: var(--primary);
   text-shadow: none;
 }
 
 .reveal .slides > section,
 .reveal .slides > section > section {
-  line-height: 1.3;
+  line-height: var(--line-height-base);
   font-weight: inherit;
 }
 
@@ -275,9 +317,9 @@ body::after {
 .reveal h4,
 .reveal h5,
 .reveal h6 {
-  margin: 0 0 20px 0;
-  font-weight: 600;
-  line-height: 1.2;
+  margin: 0 0 var(--token-12) 0;
+  font-weight: var(--fw-semibold);
+  line-height: var(--line-height-h3);
   letter-spacing: normal;
   text-shadow: none;
   word-wrap: break-word;
@@ -286,10 +328,12 @@ body::after {
 
 .reveal h1 {
   font-size: 2.5em;
+  line-height: var(--line-height-h1);
 }
 
 .reveal h2 {
   font-size: 1.6em;
+  line-height: var(--line-height-h2);
 }
 
 .reveal h3 {
@@ -298,18 +342,15 @@ body::after {
 
 .reveal h4 {
   font-size: 1em;
-}
-
-.reveal h1 {
-  text-shadow: none;
+  line-height: var(--line-height-h4);
 }
 
 /*********************************************
  * OTHER
  *********************************************/
 .reveal p {
-  margin: 20px 0;
-  line-height: 1.3;
+  margin: var(--token-12) 0;
+  line-height: var(--line-height-base);
 }
 
 /* Ensure certain elements are never larger than the slide itself */
@@ -322,7 +363,7 @@ body::after {
 
 .reveal strong,
 .reveal b {
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
 
 .reveal em {
@@ -335,6 +376,7 @@ body::after {
   display: inline-block;
   text-align: left;
   margin: 0 0 0 1em;
+  font-size: 0.9em;
 }
 
 .reveal ol {
@@ -362,7 +404,7 @@ body::after {
 }
 
 .reveal dt {
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
 
 .reveal dd {
@@ -378,11 +420,11 @@ body::after {
   display: block;
   position: relative;
   width: 70%;
-  margin: 20px auto;
-  padding: 5px;
+  margin: var(--margin-bottom-base) auto;
+  padding: var(--token-08);
   font-style: italic;
-  background: rgba(125, 60, 255, 0.1);
-  box-shadow: 0px 0px 2px rgba(125, 60, 255, 0.3);
+  background: var(--text-highlight);
+  box-shadow: var(--shadow-blockquote);
 }
 
 .reveal blockquote p:first-child,
@@ -398,25 +440,26 @@ body::after {
   display: block;
   position: relative;
   width: 90%;
-  margin: 20px auto;
+  margin: var(--token-12) auto;
   text-align: left;
-  font-size: 0.55em;
-  font-family: monospace;
+  font-size: 0.5em;
+  font-family: var(--font-family-monospace);
   line-height: 1.2em;
   word-wrap: break-word;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-code);
 }
 
 .reveal code {
-  font-family: monospace;
+  font-family: var(--font-family-monospace);
 }
 
 .reveal pre code {
   display: block;
-  padding: 5px;
+  padding: var(--token-08);
   overflow: auto;
   max-height: 400px;
   word-wrap: normal;
+  background: var(--bg-code);
 }
 
 .reveal table {
@@ -426,14 +469,15 @@ body::after {
 }
 
 .reveal table th {
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
 
 .reveal table th,
 .reveal table td {
   text-align: left;
-  padding: 0.2em 0.5em 0.2em 0.5em;
-  border-bottom: 1px solid var(--grey-70);
+  padding: 0.15em 0.4em;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.85em;
 }
 
 .reveal table th[align='center'],
@@ -474,32 +518,31 @@ body::after {
  * LINKS
  *********************************************/
 .reveal a {
-  color: #7d3cff;
-  text-decoration: none;
-  -webkit-transition: color 0.15s ease;
-  -moz-transition: color 0.15s ease;
-  transition: color 0.15s ease;
+  color: var(--text-links);
+  text-decoration: var(--link-decoration);
+  transition: color var(--transition-fast);
 }
 
 .reveal a:hover {
-  color: #9d5fff;
+  color: var(--text-links-hover);
   text-shadow: none;
   border: none;
+  text-decoration: var(--link-hover-decoration);
 }
 
 .reveal .roll span:after {
-  color: #fff;
-  background: #5d2cd0;
+  color: var(--grey-00);
+  background: var(--primary-dark);
 }
 
 /*********************************************
  * IMAGES
  *********************************************/
 .reveal section img {
-  margin: 15px 0px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 4px solid rgba(125, 60, 255, 0.2);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  margin: var(--token-16) 0px;
+  background: var(--color-overlay-white);
+  border: 4px solid var(--color-border-purple);
+  box-shadow: var(--shadow-image);
 }
 
 .reveal section img.plain {
@@ -508,15 +551,13 @@ body::after {
 }
 
 .reveal a img {
-  -webkit-transition: all 0.15s linear;
-  -moz-transition: all 0.15s linear;
-  transition: all 0.15s linear;
+  transition: all var(--transition-fast);
 }
 
 .reveal a:hover img {
-  background: rgba(125, 60, 255, 0.1);
-  border-color: #7d3cff;
-  box-shadow: 0 0 20px rgba(125, 60, 255, 0.4);
+  background: var(--text-highlight);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-image-hover);
 }
 
 /*********************************************
@@ -524,38 +565,38 @@ body::after {
  *********************************************/
 .reveal .controls .navigate-left,
 .reveal .controls .navigate-left.enabled {
-  border-right-color: #7d3cff;
+  border-right-color: var(--primary);
 }
 
 .reveal .controls .navigate-right,
 .reveal .controls .navigate-right.enabled {
-  border-left-color: #7d3cff;
+  border-left-color: var(--primary);
 }
 
 .reveal .controls .navigate-up,
 .reveal .controls .navigate-up.enabled {
-  border-bottom-color: #7d3cff;
+  border-bottom-color: var(--primary);
 }
 
 .reveal .controls .navigate-down,
 .reveal .controls .navigate-down.enabled {
-  border-top-color: #7d3cff;
+  border-top-color: var(--primary);
 }
 
 .reveal .controls .navigate-left.enabled:hover {
-  border-right-color: #9d5fff;
+  border-right-color: var(--primary-light);
 }
 
 .reveal .controls .navigate-right.enabled:hover {
-  border-left-color: #9d5fff;
+  border-left-color: var(--primary-light);
 }
 
 .reveal .controls .navigate-up.enabled:hover {
-  border-bottom-color: #9d5fff;
+  border-bottom-color: var(--primary-light);
 }
 
 .reveal .controls .navigate-down.enabled:hover {
-  border-top-color: #9d5fff;
+  border-top-color: var(--primary-light);
 }
 
 /*********************************************
@@ -566,10 +607,8 @@ body::after {
 }
 
 .reveal .progress span {
-  background: #7d3cff;
-  -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
-  -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
-  transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  background: var(--primary);
+  transition: width 800ms var(--ease-in-out);
 }
 
 /*********************************************
@@ -579,7 +618,7 @@ body::after {
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #1a1c2e;
+  background: var(--bg-code-block);
   color: #dcdcdc;
 }
 
@@ -617,7 +656,7 @@ body::after {
 .hljs-selector-class,
 .hljs-section,
 .hljs-type {
-  color: #9d5fff;
+  color: var(--primary-light);
 }
 
 .hljs-symbol,
@@ -645,5 +684,5 @@ body::after {
 }
 
 .hljs-strong {
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
