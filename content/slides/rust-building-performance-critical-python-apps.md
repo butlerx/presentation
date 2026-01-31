@@ -6,7 +6,7 @@ description: |-
   scaling issues. Recently, the Python ecosystem has seen massive performance gains
   from projects written in Rust, such as uv and ruff. But what other projects
   are out there to help Python scale thanks to Rust? At Cloudsmith, we achieved 2x
-  throughput on our 8-year-old Django monolith by integrating Rust-based tools and
+  throughput on our 10-year-old Django monolith by integrating Rust-based tools and
   contributed features back upstream.
 
   We'll look at a number of projects that helped us start bringing Rust into our
@@ -37,9 +37,9 @@ slideOptions:
 <section data-background-image="/presentation/img/rust-building-performance-critical-python-apps/cover.svg" data-background-size="cover">
 <aside class="notes">
 
-This talk is about how we took an 8-year-old Django monolith running 110 million
-requests a day and doubled its throughput by integrating Rust-based tools. No
-rewrites needed
+- Your Rust tools doubled our throughput on 110M req/day Django monolith
+- No rewrites—just Granian, orjson, jsonschema-rs
+- This talk: what adoption looks like from the consumer side
 
 </aside>
 </section>
@@ -50,12 +50,18 @@ rewrites needed
 
 **Universal package management & supply chain security**
 
-- Secure artifact repository for over 32 package formats
-- Handles **110M+ API requests/day**
-- Processes **petabytes of packages daily**
-- 8-year-old Django monolith at the core
+- Secure artifact repository for 32+ package formats
+- **110M+ API requests/day**
+- **Petabytes of packages daily**
+- 10-year-old Django monolith
 
-Every non-cached request hits our API ⚡
+Every non-cached request hits our Django API ⚡
+
+Notes:
+
+- Scale context: 110M req/day, petabytes daily
+- Legacy Django
+- Every request matters — your tools impact real users
 
 ---
 
@@ -69,32 +75,24 @@ SSL + Basic    Queuing &        App
 Validation     Routing          Server
 ```
 
-- Multiple components to maintain & debug
-- uWSGI = black box with mysterious latency spikes
-  - Threading model causing unpredictable behavior
-- Can't cancel in-flight requests (WSGI limitation)
-- Throwing resources at scaling problems
+- Multiple components to maintain and run = debugging hell
+- uWSGI threading model = black box latency spikes
+- No request cancellation (WSGI limitation)
+- Throwing hardware at scaling problems
 
 Notes:
 
-Like most services that have been around 8 years, our architecture had evolved
-organically. We had NGINX doing SSL termination and basic request validation,
-HAProxy for queuing and routing, and uWSGI as our application server talking to
-Django. The problem wasn't that these components don't work - they do. The
-problem was the complexity of debugging them. We were seeing latency spikes that
-we couldn't correlate to anything. We'd tune uWSGI and things would improve then
-get weird again. The threading model was a black box to us. And from a business
-perspective, we were paying for a lot of infrastructure to handle traffic that
-could be handled more efficiently. we were curious - could we do better?
+- Classic Python infra: NGINX → HAProxy → uWSGI → Django
+  - Nginx doing SSL termination and basic req validation
+  - HAProxy for queueing
+- Pain points: debugging complexity, threading opacity, green threading
 
 ---
 
 ## Why This Matters
 
-**Common startup constraints:**
-
-- ❌ Can't do a full rewrite
-- ❌ Limited engineering time
+- ❌ Full rewrites aren't viable (10 years of business logic)
+- ❌ Limited engineering bandwidth
 - ✅ Need performance gains NOW
 - ✅ Must maintain reliability
 
@@ -102,99 +100,101 @@ could be handled more efficiently. we were curious - could we do better?
 
 Notes:
 
-I want to be clear about something from the start. We couldn't rewrite our core
-API in Rust. That's 8 years of business logic, edge cases, customer
-customizations, and tribal knowledge. We also don't have unlimited engineering
-time. What we do have is cost pressure and a curiosity about what modern Rust
-tools can do. The question that drove this whole project was simple: can we get
-meaningful performance improvements without throwing away years of Python code?
-The answer, as we'll see, is yes. Absolutely yes.
+- Rewrites is a no go, years of accumulated edge cases, logic that no one know
+  why it is but its important
+- Rust tools that integrate easily WIN adoption
+- Minimal code changes = maximum uptake
 
 ---
 
-## Our Methodology
+## The Methodology
 
-1. **Measure everything** - Establish baselines
-2. **Identify bottlenecks** - Profile & trace
-3. **Find existing Rust tools** - Don't reinvent the wheel
-4. **Test thoroughly** - Months in staging
-5. **Phased rollout** - Canary by region
-6. **Monitor & iterate** - Production is different
+1. **Measure everything** — baselines before changes
+2. **Identify bottlenecks** — profile & trace first
+3. **Find existing Rust tools** — don't reinvent
+4. **Test extensively** — months in lower envs
+5. **Phased rollout** — canary by region
+6. **Monitor & iterate** — production differs
 
-**Goal:** Minimal code changes, maximum impact
+**What matters:** Minimal code changes, maximum impact
 
 Notes:
 
-This is the methodology that worked for us. Notice what's NOT on this list -
-there's no "rewrite in Rust". Our approach was surgical. We didn't go looking
-for Rust projects to use - we only investigated them after we found a
-bottleneck. We didn't do a big bang deployment - we spent months testing, then
-rolled out region by region. This is the approach I'd recommend. It's how you
-make big performance gains without betting the company.
+- We arnt pulling in rust just for the sake of it. Though we may make that joke
+- Clear bottleneck → search for native modules alternatives with a preference to
+  Rust solution
+- Testing timeline: vary, lower the stack longer we test.
+- Tools that require big changes get skipped
 
 ===
 
 ## Finding the Bottleneck
 
-**Tools we used:**
+**Our tools:**
 
-- Datadog APM traces & metrics
-- Load testing with Goose
+- Datadog & OpenTelemetry traces & metrics
+- **Loadtesting:**
+  1. **Locust** ❌ — Couldn't generate enough load
+  2. **wrk** ❌ — Same problem
+  3. **Goose** ✅ — Rust-based, actually stressed our system
 
-**Discovery:**
+Notes:
 
-- Application server layer = primary constraint
-- uWSGI threading model not playing well with our workload
-- JSON serialization overhead in responses & logging
+- Used Datadog and OpenTelemetry to trace requests end-to-end
+- Python load testers hit ceiling before our system did.
+  - We had to spin up so many workers the operation cost became annoying
+- WRK was able to push the load but automating complex senarios with the lua
+  became to much
+- Goose (Rust) could actually find real limits with a defined user senatios
+
+===
+
+**What we found:**
+
+- Application server layer was where we spent all out time
+- uWSGI was causing weird latency spikes
+- serialization overhead everywhere (JSON & XML)
 - Complex proxy chain adding latency
 
 **No single "aha moment"** - we all knew it was complicated
 
 Notes:
 
-We used Datadog's APM to trace requests end-to-end. When you're looking at this
-kind of traffic volume, you need industrial-strength monitoring. The traces
-showed us that the app server layer was the constraint. When we looked at the
-uWSGI metrics, nothing seemed obviously wrong - which was the problem. We
-couldn't get visibility into what was actually happening. JSON serialization
-kept showing up in flamegraphs. And the more we looked at the architecture, the
-more we realized we had complexity for complexity's sake - NGINX doing things
-HAProxy could do, HAProxy doing things the app server could handle. No single
-aha moment, but a lot of small realizations that added up.
+- Multiple small issues → compound improvement opportunity
 
 ---
 
-## The Rust Tools
+## The Rust Tools we used
 
-Three key integrations:
-
-1. **Granian** - Rust-based ASGI/WSGI server
-2. **orjson** - Fast JSON serialization
-3. **jsonschema-rs** - High-performance JSON validation
+1. **Granian** — Tokio/Hyper-based ASGI/WSGI server
+2. **orjson** — PyO3-based JSON serialization
+3. **jsonschema-rs** — High-performance validation
 
 Each solves a specific bottleneck with minimal integration effort
 
 Notes:
 
-We ended up using three main Rust components. Each solved a different problem.
-Granian is the big one - replacing the entire nginx/HAProxy/uWSGI stack. orjson
-and jsonschema-rs are smaller wins. But smaller wins compound. A 10% improvement
-in JSON parsing plus a 10% improvement in validation plus a 2x improvement in
-the app server doesn't just add - it multiplies through the system.
+- Granian: replaces NGINX + HAProxy + uWSGI stack
+- orjson: drop-in json replacement via PyO3
+- jsonschema-rs: validation at Rust speed
+- We also started to use Prek and Uv to speed up our dev env
+- Small wins compounded
 
 ===
 
 ## orjson: Drop-in JSON Performance
 
-**What it does:** Rust-based JSON serialization library
+**What it does:** PyO3-based JSON serialization
 
 **Where we used it:**
 
 - Django REST Framework responses
 - python-json-logger integration
-- Everywhere we called `json.dumps()` / `json.loads()`
+- Every `json.dumps()` / `json.loads()` call
 
-**Integration effort:**
+===
+
+**Integration:**
 
 **Before**
 
@@ -212,96 +212,60 @@ data = orjson.dumps(payload)
 
 **Surprises:**
 
-- ✅ Almost zero compatibility issues
-- ⚠️ One customer noticed (they were manually parsing - fixed on their end)
+- ✅ Near-zero compatibility issues
+- ⚠️ One edge case (customer parsing JSON manually in bash)
 
 Notes:
 
-orjson was the easy win. Import, replace, done. We had to go through our
-codebase manually - no LLMs were used, just grep and discipline. The rollout was
-smooth. We did have one customer who had built custom parsing logic in bash and
-they noticed the format was slightly different. But we were still sending valid
-JSON - it was just faster. They were happy to stop doing their own parsing. This
-is the kind of integration I'd recommend starting with if you're trying this.
-Low risk, immediate benefit, easy to understand if something goes wrong.
+- Easy Win, Simple swap: import → replace → done.
+- Manual code review only — grep + discipline, no LLMs.
+- Rollout went smoothly.
+- One customer had custom Bash JSON parsing — noticed slight format change.
+  - Still valid JSON; just faster.
+  - They dropped their parser — happy outcome.
 
 ===
 
-## jsonschema-rs: Free Win
+## jsonschema-rs: The Accidental Win
 
 **Discovery:** We were running BOTH Python jsonschema AND jsonschema-rs
 
-**Solution:** Drop the Python one entirely
+**Fix:** Remove the Python one
 
-**Impact:** Free performance win from removing duplicate work
-
-**Lesson:** Sometimes the best optimization is removing code
+**Result:** Free performance win
 
 Notes:
 
-This is a funny story. We discovered we were actually running both the Python
-jsonschema library AND jsonschema-rs - we had migrated some validation to
-jsonschema-rs but never removed the Python dependency. It was just sitting there
-doing nothing. We nuked it and got a free performance win. No code changes
-needed, just dependency removal. The lesson here is that sometimes performance
-optimization is about removing things, not adding them. Look for duplicate work,
-dead code, unnecessary services.
+- This is a funny story.
+- We discovered we were actually running both the Python jsonschema library AND
+  jsonschema-rs
+- we had migrated some code but not all calls to it
+- Clearly worked in prod just replaced all calls
 
 ---
 
-## Load Testing: Finding the Right Tool
+## Granian: Tokio/Hyper for Python
 
-**We tried:**
+**What it is:** Rust HTTP server for Python (ASGI/WSGI) Built on Tokio async
+runtime + Hyper HTTP
 
-1. **Locust** ❌ - Couldn't generate enough load
-2. **wrk** ❌ - Same problem
-3. **Goose** ✅ - Rust-based, could actually stress our system
+**What it replaced:**
 
-**Key insight:** You need a load testing tool that can push harder than your
-production traffic
+BEFORE: NGINX → HAProxy → uWSGI → Django
 
-Otherwise you're not finding real limits
+AFTER: Granian → Django
 
 Notes:
 
-When we tried Locust and wrk, we hit ceiling effects. The load testing tool
-would max out before the system under test did. That meant we weren't finding
-real bottlenecks - we were finding load test tool limits. We switched to Goose,
-which is Rust-based, and suddenly we could actually stress the system. The
-lesson - especially for large scale systems - is that your load testing tool
-needs to be at least as fast as what you're testing. Otherwise you're lying to
-yourself about your system's limits.
-
----
-
-## Granian: Simplifying the Stack
-
-**What it is:** Rust HTTP server for Python apps (ASGI/WSGI) Built with Tokio
-async runtime + Hyper HTTP
-
-**What it replaced:** BEFORE: NGINX → HAProxy → uWSGI → Django AFTER: Granian →
-Django
-
-**Why Granian specifically:**
-
-- Familiarity with Tokio/Hyper (easier to debug & contribute)
+- Granian uses your async runtime (Tokio) + HTTP stack (Hyper)
+- We chose it because i could READ THE CODE
+- Familiarity = ability to debug and contribute
 - Active development & responsive maintainer
-- Modern architecture vs uWSGI's complexity
-
-Notes:
-
-Granian is the centerpiece of this whole project. It's a Rust HTTP server built
-on top of Tokio, which is the de facto standard async runtime in Rust. I chose
-it specifically because I was already familiar with Tokio and Hyper, which meant
-if we hit issues, I could actually debug them. I could read the source code. I
-could understand what was happening instead of treating it like a black box. And
-that familiarity meant we could eventually contribute back observability
-features that we needed. The architecture is modern - it handles the threading,
-async, and connection management that took three separate components before.
+- Replaced THREE components with one Rust binary
 
 ===
 
-## Load Test: uWSGI vs Granian (Staging)
+## Loadtest: uWSGI vs Granian
 
 | Metric                | uWSGI    | Granian  | Improvement |
 | --------------------- | -------- | -------- | ----------- |
@@ -311,25 +275,18 @@ async, and connection management that took three separate components before.
 | **P95 Latency**       | 11,000ms | 12,000ms | +9%         |
 | **Total Requests**    | 18,124   | 23,235   | +28%        |
 
-**Test:** 0-200 concurrent users over 16 minutes (Goose v0.17.2)
-
-uWSGI: Perfect reliability, lower throughput Granian: Higher throughput, faster
-responses
+**Test:** 0-200 concurrent users, 16 minutes (Goose v0.17.2)
 
 Notes:
 
-This was our first staging test comparing just the app servers. We ramped from 0
-to 200 concurrent users over 16 minutes using Goose. The results were
-compelling. 32% more throughput, 45% lower average latency, and 57% lower p50
-latency - that middle 50% of requests were getting served faster. The p95 and
-p99 went up slightly, but that's because we're pushing more traffic through the
-system and handling tail cases better. Most importantly - uWSGI had zero errors.
-It didn't crash. We're not talking about trading stability for performance.
-We're talking about getting both.
+- Staging test: just app servers head-to-head
+- 32% throughput, 45% faster average, 57% faster median
+- P95/P99 slightly up = handling more traffic at tail
+- uWSGI had zero errors — this is additive, not trade-off
 
 ===
 
-## Load Test: Full Stack Comparison
+## Loadtest: Full Stack (The Real Win)
 
 | Metric                | NGINX/HAProxy/uWSGI | Granian | Improvement    |
 | --------------------- | ------------------- | ------- | -------------- |
@@ -340,121 +297,98 @@ We're talking about getting both.
 | **P99 Latency**       | 7,000ms             | 4,000ms | **-43%**       |
 | **Total Requests**    | 69,828              | 142,225 | +104%          |
 
-✅ **2x throughput improvement** ✅ **Over 50% latency reduction**
+✅ **2x throughput** ✅ **50%+ latency reduction**
 
 Notes:
 
-But that's not the full story. That first test was just comparing app servers.
-Once we removed the nginx and HAProxy layer, the improvements multiplied. We
-doubled throughput. Doubled. And we cut latency in half. That p50 improvement
-means half of all requests are getting served twice as fast. The p95 improvement
-means customers aren't waiting 5 seconds anymore - they're waiting 3. That adds
-up across billions of requests. This is what happens when you remove unnecessary
-complexity from your architecture.
+- Full stack comparison: this is the real impact
+- 2x throughput = handle double the traffic, same hardware
+- P50 halved = typical users see 2x faster responses
 
 ---
 
 ## The Migration Journey
 
-**Timeline:** Several months from testing → production
+**Timeline:** Months from testing → production
 
 **Phased rollout:**
 
-1. Extensive staging environment testing
+1. Staging rollout
 2. Internal environment validation
 3. Canary deployment by region
-4. Gradual rollout over weeks
+4. Gradual rollout over days
 
-**Why so careful?** 110M requests/day = high-risk change
+**Why:** 110M requests/day = high-stakes change
 
 Notes:
 
-We didn't go from "this looks good" to "deploy to everything" overnight. We had
-months of testing. We set up a staging environment that mimicked production
-traffic patterns as closely as we could. We ran it internally. We looked for
-edge cases. Then we did a canary deployment in one region and watched carefully
-for issues. If something went wrong with Granian in a canary region, it would
-affect maybe 5% of our traffic. If something went wrong globally, we'd have
-serious problems. The lesson here is that big infrastructure changes need time.
-You can't test your way to 100% confidence, but you can reduce the blast radius
-of your risk.
+- Not "looks good" → "deploy everywhere"
+- staging, internal then canary by region in prod
+- We had e2e test that passed, but so much logic that we wanted to be sure.
 
 ---
 
-## What Broke (And How We Fixed It)
+## What Broke: Threading Model Differences
 
 ### **1. Database Connection Exhaustion** 💥
 
-**Problem:** Django 4's "connection pooling" is just connection reuse Granian's
-threading model = each thread spawns connections uWSGI green threads = better
-connection sharing
+**Root cause:** Django 4's "pooling" = just connection reuse
 
-**Solution:**
+- Granian's true threading: each thread spawns connections
+- uWSGI green threads: better connection sharing
 
-- Upgrade to Django 5.1's real connection pooling
-- Adjust DB connection limits
-- Still in progress (why Granian isn't at 100% yet)
+**Fix:**
+
+- Django 5.1's real connection pooling
+- Still in progress (why Granian isn't at 100%)
 
 Notes:
 
-This was the big surprise. When we deployed Granian to production, we
-immediately started seeing database connection exhaustion. We thought we had
-connection pooling in Django, but what we actually had was connection reuse -
-Django would hold onto a connection for a request and reuse it if the same
-thread handled the next request. With uWSGI's green threading model, the same
-thread would handle many requests. With Granian's true threading model, each
-thread gets its own connection. So if Granian spawns 100 threads and each one
-grabs a database connection, suddenly we're eating all our DB connection limits.
-The fix is Django 5.1's real connection pooling, which separates the connection
-lifecycle from the thread lifecycle. We're still rolling that out - this is why
-Granian isn't at 100% in production yet. But this was a good learning. Threading
-models matter. When you switch from green threads to OS threads, connection
-management changes. You need to think about this.
+- Threading model differences matter for Python interop
+- uWSGI green threads vs Granian OS threads = different resource patterns
+- Django 5.1 fixes this properly
+- tried RDSProxy but got some insane latency spike waiting on connections
 
 ===
 
-## What Broke (And How We Fixed It)
+## What Broke: HTTP Strictness
 
 ### **2. HTTP Handling Differences**
 
-**Problem:** NGINX was doing quirky HTTP normalization Hyper (Granian's HTTP
-lib) follows spec strictly ALB started erroring in weird edge cases
+**Root cause:** NGINX normalizes quirky HTTP silently
 
-**Solution:** Working through HTTP compatibility issues
+- Hyper does Everything correctly
+- AWS ALB couldnt handle the weird responses
+
+**Fix:** We are isolating this logic out and following specs
 
 Notes:
 
-NGINX has been around forever and has all kinds of built-in assumptions about
-how HTTP works. If you send it something slightly malformed, it fixes it. Hyper,
-the HTTP library that Granian uses, is more strict - it follows the spec. So
-we'd get valid Hyper responses that broke in weird ways at the AWS load
-balancer. We're still working through these edge cases. It's tedious work but
-necessary.
+- Package managers are weird.
+- They do weird things like expecting a body size on a 307 that matches the size
+  of the thing after the 307.
+- Nginx is doing something weird to make this work.
 
 ===
 
-## What Broke (And How We Fixed It)
+## What Broke: Debugger Support
 
 ### **3. Development Workflow**
 
 **Problem:** Can't attach Python debugger to Granian
 
-**Workaround:** Fall back to uWSGI for local dev _Not ideal, but manageable_
+**Workaround:** Using a different server in dev
 
 Notes:
 
-The debugger issue is real too. You can't attach pdb to a Granian process and
-step through Python code. The workaround is falling back to uWSGI for local
-development, which is fine. Most of the time when you're debugging, you're
-debugging business logic in your application, not the app server itself. But if
-you hit a weird app server issue, you're reaching for logging rather than a
-debugger.
+- Can't pdb into Granian processes
+- Not likle we used uwsgi in dev either.
 
 ---
 
-## Tuning Granian
+## Tuning: Granian
 
-**Key parameters we adjusted:**
+**Key parameters:**
 
 ```
 granian --interface wsgi \
@@ -464,87 +398,42 @@ granian --interface wsgi \
         app:application
 ```
 
-**Backlog:** Max connections to hold in queue **Threads:** Per-worker blocking
-I/O threads **Workers:** Process count
+- **Backlog:** Max connections to hold in queue
+- **Threads:** Per-worker blocking I/O threads
+- **Workers:** Process count
 
-**Goal:** Recreate HAProxy's backpressure behavior without HAProxy
+**Goal:** Recreate HAProxy's queue without HAProxy
 
 Notes:
 
-These configuration parameters are where the real tuning happens. The backlog is
-particularly important. In the HAProxy architecture, if the app servers got
-overwhelmed, HAProxy would queue requests. That queue created backpressure on
-the load balancer, which would back off. With Granian, you need to set the
-backlog explicitly - that's the max number of connections Granian will hold in
-the kernel listen queue while waiting for app server threads to become
-available. If this is too low, you drop connections. If it's too high, you're
-lying to the load balancer about how much capacity you have. We tuned this to
-2048 to match the behavior we had with HAProxy. The threads parameter controls
-how many threads per worker can handle blocking I/O - things like database
-queries or external API calls. Workers is how many processes you spawn. Finding
-the right balance took experimentation and load testing.
+After lots of playing around we found some values that worked and replicated the
+HAProxy within Granians main eventloop
 
 ---
 
-## Contributing Back to Granian
+## Contributing Back to Granian.
 
 **What we needed:** Production observability
 
-**What was missing:**
-
-- Backlog queue metrics
-- Tokio event loop visibility
-- Prometheus-compatible metrics export
+**What was Missing:** Metrics
 
 **What we did:**
 
-- Forked Granian & added Prometheus metrics
+- Forked, added Prometheus metrics endpoint
 - Exposed backlog depth, event loop stats
-- Working with maintainer Giovanni Barillari to upstream
+- Open a PR (never got it merged)
 
-**Current status:** Implementation works but makes Linux assumptions Refining
-for cross-platform merge
-
-Notes:
-
-When we deployed Granian to production, we realized we didn't have visibility
-into what it was doing. Is the backlog building up? Is the event loop saturated?
-Is there a bottleneck in the runtime? We needed metrics. So we forked Granian,
-added Prometheus metrics, and exposed what we needed. The backlog depth is
-particularly important - it tells you if you're hitting the limits of your
-tuning. Too high and you're queueing requests too long. We started working with
-Giovanni, the Granian maintainer, to get these features upstream. The
-implementation works but makes some Linux-specific assumptions about how to get
-metrics from the kernel. We're refining it to be cross-platform so it can be
-merged back. Why do this? Because we depend on Granian in production and we want
-the improvements to benefit everyone else using it.
-
----
-
-## Why This Matters
-
-**For us:**
-
-- ✅ Production-grade monitoring
-- ✅ Long-term support from community
-- ✅ Don't maintain a permanent fork
-
-**For the ecosystem:**
-
-- ✅ Everyone benefits from observability
-- ✅ Granian becomes more production-ready
-- ✅ Rust-Python integration gets better
-
-**Lesson:** If you depend on it in production, help make it better
+**Status:** Will be in the next release
 
 Notes:
 
-Contributing back isn't altruism - though that's nice. It's pragmatism. If we
-maintain a private fork with features no one else has, we're locked in. We're
-responsible for merging every upstream release into our fork. We're stuck. By
-working with Giovanni to upstream our changes, we get the features in the
-mainline, other people benefit, and Granian gets better for everyone. This
-benefits us in the long run.
+- Realized we were flying blind
+  - We needed replicate our HAProxy visibility
+  - Needed: backlog depth, event loop saturation
+- Forked and added metrics ourselves
+- We never had time to address the concerns.
+- as of Friday(?) the maintainer got to implement the features and it'll be in
+  the next release
 
 ---
 
@@ -552,185 +441,54 @@ benefits us in the long run.
 
 **Granian deployment:**
 
-- ✅ Running in production (canary regions)
-- ⏳ Not at 100% yet (Django upgrade in progress)
-- ✅ Debugging is MUCH easier than uWSGI
-- ✅ Performance gains confirmed in production
+- ✅ Running in Internal Envs
+- ⏳ Not 100% yet (Django upgrade in progress)
+- ✅ Debugging easier than uWSGI black box
+- ✅ Performance gains confirmed
 
-**Rust in our stack:**
+**Rust In the stack:**
 
-- orjson: ✅ Fully rolled out
-- jsonschema-rs: ✅ Fully rolled out
-- Granian: ⏳ Phased rollout ongoing
-
-**Next step:** Full Granian rollout after Django 5.1 migration
+- orjson: ✅ Everywhere
+- jsonschema-rs: ✅ Everywhere
+- Granian: ⏳ Phased rollout
 
 Notes:
 
-We're in production with Granian in canary regions right now. Performance gains
-are confirmed - we're seeing the 2x throughput improvement translate to
-production. We're not at 100% yet because we're still upgrading Django to get
-real connection pooling in place. That's the blocker. But the fact that we're
-not at 100% doesn't mean we failed - it means we're being careful. We're
-validating edge cases. We're not pushing a change that would break the database
-layer. orjson and jsonschema-rs are fully rolled out everywhere. They work,
-they're stable, they're not causing issues. The next milestone is finishing the
-Django upgrade and rolling Granian out to 100% of our traffic.
+- Canary regions running Granian NOW
+- 2x throughput confirmed in production
+- Not 100% = being careful, not failed
+- orjson/jsonschema-rs = stable, invisible, just work
 
 ---
 
-## Unexpected Benefit: Confidence
+## Cultural Shift
 
-**Rust libs for Python are very stable**
+This gave us confidence to to experiment more
 
-This experience gave us confidence to:
-
-- ✅ Experiment with more Rust libraries
-- ✅ Build new services in pure Rust
-- ✅ Always consider Rust tools first
-
-**Every rollout:** Small improvements add up
-
-**Cultural shift:** Team now comfortable with Rust in the stack
+Build new services in pure Rust
 
 Notes:
 
-Something unexpected happened. After we successfully rolled out three Rust
-libraries and had positive experiences, the team's attitude shifted. We went
-from "Rust? That's scary, that's for systems programming" to "hey, should we be
-considering Rust for this?" Now when we're evaluating tools, Rust
-implementations are in the consideration set. We've started building new
-services in pure Rust because we know we can integrate them, we know they're
-stable, and we know the performance benefits are real. That cultural shift is
-worth mentioning. It's not just about the performance numbers - it's about
-having the confidence to use the right tool for the job.
+- Started: "Rust is scary, that's systems programming"
+- Successful integrations build organizational confidence
+- You're not just writing libraries — you're shifting ecosystems
+- managed to convince a pure python shop to let to build a service in RUST
 
 ---
 
-## When This Approach Works
+## Where Rust-Python Tools Win
 
 **Good fit when you have:**
 
-- ✅ Identifiable performance bottlenecks
-- ✅ Existing Python codebase with business logic
-- ✅ SRE/Ops expertise for integration work
-- ✅ Time for thorough testing (months, not days)
-- ✅ Mature Rust alternatives exist
-
-**Not a good fit when:**
-
-- ❌ Already optimized & hitting theoretical limits
-- ❌ Pure I/O bound (Python async is fine)
-- ❌ Team unfamiliar with systems programming
-- ❌ Full rewrite is actually viable
+- ✅ Clear performance bottleneck exists
+- ✅ Drop-in API compatibility
 
 Notes:
 
-This strategy isn't a silver bullet. It works when you have a clear bottleneck
-and a mature Rust tool that solves it. If your system is already well-optimized,
-this won't help much. If your bottleneck is I/O - and you don't have connection
-pooling issues like we did - Python's async capabilities might be enough. If
-your team is uncomfortable with Rust or systems programming concepts, the
-maintenance burden could be high. And if you're at a stage where a full rewrite
-actually is viable - you have time, you have resources, you're willing to accept
-the risk - then maybe Rust end-to-end is the right call. But if you're like most
-teams - constrained on time, resources, risk tolerance - this incremental
-approach works well.
-
----
-
-## Key Takeaways
-
-1. **Measure first** - Datadog traces revealed the truth
-2. **Load test properly** - Your tool must stress harder than production
-3. **Start small** - orjson was easy, Granian took months
-4. **Test extensively** - We found DB pooling issues in staging
-
-===
-
-## Key Takeaways (continued)
-
-5. **Phased rollouts** - Canary saved us from breaking 110M req/day
-6. **Contribute back** - Production needs justify upstream work
-7. **Threading models matter** - Granian != uWSGI (learn the differences)
-8. **Simplicity wins** - Removing HAProxy/NGINX reduced complexity
-
-Notes:
-
-If you take nothing else from this talk, remember these eight things. Measure,
-test, start small, test more, roll out carefully, give back to the community,
-understand what you're changing, and simplify. These principles apply whether
-you're using Rust tools or any other infrastructure change.
-
----
-
-## If You Want To Try This
-
-**Step 1:** Profile your app (py-spy, Datadog APM, whatever)
-
-**Step 2:** Find the bottleneck (app server? JSON? validation?)
-
-**Step 3:** Check if a Rust tool exists (probably does)
-
-===
-
-## If You Want To Try This (continued)
-
-**Step 4:** Start with the easiest integration (orjson = 1 hour)
-
-**Step 5:** Load test with Goose before & after
-
-**Step 6:** If it works, test harder things (Granian)
-
-===
-
-## The Golden Rule
-
-**Don't:** Rewrite everything in Rust
-
-**Do:** Use Rust where it gives you 2x wins for minimal effort
-
-Notes:
-
-If you're sitting here thinking "okay, this sounds good, but how do I start?"
-Here's the playbook. First, you need data. Profile your application. Find where
-the time is going. Then ask - is there a Rust tool that solves this? The answer
-is often yes. Start with something low-risk. orjson is about as low-risk as it
-gets - it's a drop-in replacement for json. If that works, iterate to harder
-problems. Load test everything before and after. Don't fall into the trap of
-rewriting your whole system in Rust to fix a JSON serialization issue. Find the
-specific bottleneck, find the specific tool, integrate it, measure the
-improvement, move on.
-
----
-
-## What's Next for Us
-
-**Short term:**
-
-- ✅ Complete Django 5.1 upgrade (connection pooling)
-- ✅ Finish Granian rollout to 100%
-- ✅ Upstream Prometheus metrics to Granian
-
-**Long term:**
-
-- Explore more Rust-Python libraries
-- Build new services in pure Rust (when appropriate)
-- Continue simplifying infrastructure
-
-**Philosophy:** Hybrid is pragmatic - use the right tool for each layer
-
-Notes:
-
-We're not done. The next phase is finishing the Django upgrade and getting
-Granian to 100%. We're working with Giovanni to get our observability features
-upstream. And longer term, we're going to keep evaluating tools through this
-lens. When we need to build something new, we'll consider whether Rust is the
-right choice. The key insight here is pragmatism. We're not religious about
-this. We're not saying "everything should be Rust." We're saying "use the right
-tool for each specific problem." For API responses, orjson. For request
-handling, Granian. For connection pooling, we're using Django's native support.
-It's a hybrid approach and that's okay.
+- Best targets: clear bottleneck + easy integration
+- API compatibility is HUGE for adoption
+- Active maintainers matter — we needed Giovanni's help
+- Complex integrations get deprioritized
 
 ---
 
@@ -738,21 +496,14 @@ It's a hybrid approach and that's okay.
 
 **Questions?**
 
-**Cian Butler** Senior SRE @ Cloudsmith 📧 cbutler@cloudsmith.io
+**Cian Butler** — Senior SRE @ Cloudsmith 📧 cbutler@cloudsmith.io
 
-_We're building the future of supply chain security_ _Cloudsmith is hiring:
-cloudsmith.com/careers_
-
----
-
-**tl;dr:** We got 2x throughput on an 8-year-old Django monolith by swapping in
-Rust tools without rewriting anything.
+**tl;dr:** Your Rust tools gave us 2x throughput on 110M req/day. No rewrites.
+Just good libraries.
 
 Notes:
 
-Thank you for your time. We went from a complicated multi-component architecture
-to a simpler one with 2x the throughput and half the latency. No rewrite, no
-panic, just strategic integration of the right tools. If you have questions
-about how we did this, how you can do it with your own systems, or about
-Cloudsmith and what we're building, come talk to me after. I'm happy to discuss
-any of this in detail.
+- 2x throughput, half the latency, simpler architecture
+- Your libraries made this possible
+- Happy to discuss: adoption patterns, contribution opportunities, Cloudsmith
+- We're hiring: cloudsmith.com/careers
