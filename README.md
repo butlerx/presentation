@@ -1,6 +1,7 @@
 # Presentations
 
 [![Build Status](https://github.com/butlerx/presentation/actions/workflows/static.yml/badge.svg)](https://github.com/butlerx/presentation/actions)
+
 [butlerx.github.io/presentation](https://butlerx.github.io/presentation)
 
 ---
@@ -142,7 +143,7 @@ More content here
   - Workflow: checks out the code, installs (`pnpm install`), builds
     (`pnpm build`), and uploads the `_site/` directory to GitHub Pages.
   - No manual action is needed; deployment occurs automatically after each push.
-- **View the published site at:**  
+- **View the published site at:**
   [https://butlerx.github.io/presentation](https://butlerx.github.io/presentation)
 
 ---
@@ -160,7 +161,7 @@ More content here
 
 ## Author & License
 
-**Author:** Cian Butler  
+**Author:** Cian Butler
 GitHub: [@butlerx](https://github.com/butlerx) ·
 [Personal Site](https://cianbutler.ie)
 

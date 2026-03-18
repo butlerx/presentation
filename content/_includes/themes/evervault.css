@@ -1,12 +1,13 @@
 :root {
-  --system-fonts: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
-  --font-family-base: '__Inter_e66fe9', '__Inter_Fallback_e66fe9',
-    var(--system-fonts);
-  --font-family-headings: '__roobert_30c87b', '__roobert_Fallback_30c87b',
-    var(--system-fonts);
-  --font-family-monospace: '__Roboto_Mono_829659',
-    '__Roboto_Mono_Fallback_829659', monospace;
+  --system-fonts:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  --font-family-base:
+    '__Inter_e66fe9', '__Inter_Fallback_e66fe9', var(--system-fonts);
+  --font-family-headings:
+    '__roobert_30c87b', '__roobert_Fallback_30c87b', var(--system-fonts);
+  --font-family-monospace:
+    '__Roboto_Mono_829659', '__Roboto_Mono_Fallback_829659', monospace;
 
   /* Primary */
   --primary: #63e;
@@ -33,8 +34,9 @@
   --border-color: var(--grey-80);
 
   /* Effects  */
-  --material-effect: 0 0 0 2px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 0.5px 0 rgba(255, 255, 255, 0.5);
+  --material-effect:
+    0 0 0 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.5);
 
   /* Text */
   --text-muted: var(--grey-40);
@@ -57,8 +59,8 @@
   --btn-bg-secondary: rgba(52, 44, 65, 0.8);
   --btn-bg-secondary-hover: var(--btn-bg-secondary);
   --btn-color-secondary: var(--text-headings);
-  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 1px 0 rgba(0, 0, 0, 0.05);
+  --btn-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.05);
 
   /* Misc */
   --index-ventures: #fff;
@@ -178,7 +180,8 @@
 
 .reveal-viewport {
   background-color: var(--bg-body);
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       to bottom,
       var(--bg-body-rgba) 0,
       var(--bg-body-alt) 40%,
@@ -186,7 +189,9 @@
     ),
     linear-gradient(to top, var(--bg-body-alt) 0, var(--bg-body-rgba) 100%);
   background-position: top, bottom;
-  background-size: 100% 1600px, 100% 800px;
+  background-size:
+    100% 1600px,
+    100% 800px;
   background-repeat: no-repeat;
   color: var(--text-body);
   font-size: var(--font-size-base);
@@ -207,7 +212,8 @@ body::after {
 
 .reveal {
   height: 100%;
-  background: url('./evervault-logo.svg') bottom 32px left 32px/256px no-repeat,
+  background:
+    url('./evervault-logo.svg') bottom 32px left 32px/256px no-repeat,
     radial-gradient(
       140% 107.13% at 50% 10%,
       transparent 37.41%,
