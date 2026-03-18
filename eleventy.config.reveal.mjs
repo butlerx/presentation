@@ -6,7 +6,6 @@ export default function reveal(config) {
   config.addPassthroughCopy({
     'node_modules/reveal.js/dist': 'assets/reveal/',
     'content/_includes/themes': 'assets/reveal/theme/',
-    'node_modules/reveal.js/plugin': 'assets/reveal/plugin',
   });
 
   config.amendLibrary('md', (mdLib) => {
