@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Slide decks for talks ive given over many years",
   "main": "eleventy.config.mjs",
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "start": "eleventy --serve --quiet",
     "build": "NODE_ENV=production eleventy",
@@ -19,6 +20,11 @@
     "url": "https://cianbutler.ie"
   },
   "homepage": "https://butlerx.github.io/presentation/",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
+  },
   "dependencies": {
     "reveal.js": "^6.0.1"
   },
