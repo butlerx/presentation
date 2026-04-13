@@ -20,7 +20,7 @@
   },
   "homepage": "https://butlerx.github.io/presentation/",
   "dependencies": {
-    "reveal.js": "^6.0.0"
+    "reveal.js": "^6.0.1"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.5",

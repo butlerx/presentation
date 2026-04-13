@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       reveal.js:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^6.0.1
+        version: 6.0.1
     devDependencies:
       '@11ty/eleventy':
         specifier: ^3.1.5
@@ -685,8 +685,8 @@ packages:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  reveal.js@6.0.0:
-    resolution: {integrity: sha512-RayDr1FL3Jglnf6p9xHGJ0U18va96PiuLs/JHnd1cdDOXvC+3lsXKe6ujl7PX0pvnhNW2Tpqnr6PEKpJVO2exw==}
+  reveal.js@6.0.1:
+    resolution: {integrity: sha512-9eacArNIgqO2HGWOK+93gJNn+gvdGDVbSq+i2u3Ja9kjiHps0XNLpgYTZTYjKRH91uXy3clGimeGiw4umHG/tg==}
 
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
@@ -1425,7 +1425,7 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  reveal.js@6.0.0: {}
+  reveal.js@6.0.1: {}
 
   run-parallel@1.2.0:
     dependencies:
