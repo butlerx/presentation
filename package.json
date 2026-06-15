@@ -34,6 +34,6 @@
     "@11ty/eleventy-plugin-bundle": "^3.0.7",
     "@11ty/eleventy-upgrade-help": "^3.0.0",
     "markdown-it": "^14.2.0",
-    "prettier": "^3.8.3"
+    "prettier": "^3.8.4"
   }
 }
