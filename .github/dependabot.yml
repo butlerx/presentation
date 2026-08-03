@@ -5,8 +5,22 @@ updates:
     schedule:
       interval: 'weekly'
     open-pull-requests-limit: 5
+    groups:
+      github-pages:
+        patterns:
+          - 'actions/configure-pages'
+          - 'actions/upload-pages-artifact'
+          - 'actions/deploy-pages'
+      node-setup:
+        patterns:
+          - 'actions/setup-node'
+          - 'pnpm/action-setup'
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'weekly'
     open-pull-requests-limit: 5
+    groups:
+      eleventy:
+        patterns:
+          - '@11ty/*'
