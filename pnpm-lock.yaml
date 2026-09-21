@@ -19,8 +19,8 @@ importers:
         specifier: ^7.0.0
         version: 7.0.0
       '@11ty/eleventy-plugin-bundle':
-        specifier: ^3.0.7
-        version: 3.0.7(posthtml@0.16.7)
+        specifier: ^4.0.3
+        version: 4.0.3(posthtml@0.16.7)
       '@11ty/eleventy-upgrade-help':
         specifier: ^3.0.2
         version: 3.0.2(posthtml@0.16.7)
@@ -55,6 +55,10 @@ packages:
   '@11ty/eleventy-plugin-bundle@3.0.7':
     resolution: {integrity: sha512-QK1tRFBhQdZASnYU8GMzpTdsMMFLVAkuU0gVVILqNyp09xJJZb81kAS3AFrNrwBCsgLxTdWHJ8N64+OTTsoKkA==}
     engines: {node: '>=18'}
+
+  '@11ty/eleventy-plugin-bundle@4.0.3':
+    resolution: {integrity: sha512-bduTmaKbw2HMh0+rXxmTYmf5pvtwnPR7RLtJjjfuYdaMzf1GIrZWhm5MCnW+jrYNGkwyaD7iAc0z1aTvSoA9sg==}
+    engines: {node: '>=22'}
 
   '@11ty/eleventy-upgrade-help@3.0.2':
     resolution: {integrity: sha512-1vnYgNQ0vPSSuD7fVa0wGFn1EUr6zqffj203rdO+yC0xUFp5E55Io2JHuVXY7oLxFpFEIsWaTNKHcIG77C6TPA==}
@@ -906,6 +910,14 @@ snapshots:
     transitivePeerDependencies:
       - posthtml
       - supports-color
+
+  '@11ty/eleventy-plugin-bundle@4.0.3(posthtml@0.16.7)':
+    dependencies:
+      '@11ty/eleventy-utils': 2.0.7
+      obug: 2.2.1
+      posthtml-match-helper: 2.0.3(posthtml@0.16.7)
+    transitivePeerDependencies:
+      - posthtml
 
   '@11ty/eleventy-upgrade-help@3.0.2(posthtml@0.16.7)':
     dependencies:
