@@ -33,10 +33,9 @@ Evervault offers tooling for data security and compliance.
 
 Notes:
 
-At Evervault we offer tooling to allow our users to guarantee that data is
-secure. We have a number of primitives to do this with. At the Core of all the
-primitives are Services running in enclaves. These are AWS Nitro enclaves which
-offer fully isolated VM and attestation capabilities.
+At Evervault we offer tooling to allow our users to guarantee that data is secure. We have a number
+of primitives to do this with. At the Core of all the primitives are Services running in enclaves.
+These are AWS Nitro enclaves which offer fully isolated VM and attestation capabilities.
 
 ---
 
@@ -47,13 +46,13 @@ Proxy</text><text x="445" y="12" fill="white" font-size="17px" opacity="1" style
 
 Notes:
 
-Relay is a reverse Proxy that users can put in front of any web service to
-encrypt or decrypt data prior to it reaching there backend.
+Relay is a reverse Proxy that users can put in front of any web service to encrypt or decrypt data
+prior to it reaching there backend.
 
-Relay does an number of encryptions on users data using unique keys for each
-users. To Secure our users Keys and data we do all this encryption in a backend
-running inside of an enclave. This Service is the only place that users keys are
-ever loaded and all crypto operations are performed in the enclave.
+Relay does an number of encryptions on users data using unique keys for each users. To Secure our
+users Keys and data we do all this encryption in a backend running inside of an enclave. This
+Service is the only place that users keys are ever loaded and all crypto operations are performed in
+the enclave.
 
 ---
 
@@ -67,9 +66,9 @@ ever loaded and all crypto operations are performed in the enclave.
 
 Notes:
 
-Enclaves are at the heart of all operations we perform at evervault.
-Unfortunately running enclaves is not as easy as running something like a VM or
-docker. A lot of the issues we ran into will be no surprise to many people.
+Enclaves are at the heart of all operations we perform at evervault. Unfortunately running enclaves
+is not as easy as running something like a VM or docker. A lot of the issues we ran into will be no
+surprise to many people.
 
 ===
 
@@ -95,15 +94,13 @@ impl std::ops::Drop for NsmConnection {
 
 Notes:
 
-We use the aws-nitro and tokio-vsock libraries for communicating with the
-service in the enclave. These are both rust libraries. Rust has a strong concept
-of ownership around data and resources. This is even modeled in how you handle
-dropping File Descriptors.
+We use the aws-nitro and tokio-vsock libraries for communicating with the service in the enclave.
+These are both rust libraries. Rust has a strong concept of ownership around data and resources.
+This is even modeled in how you handle dropping File Descriptors.
 
-We unfortunately made incorrect assumptions about the library implementations
-and these concepts and ended up having file descriptor leak for every connection
-to the enclave. This issue was compounded by the limited Metrics and
-Observability we had into the enclave.
+We unfortunately made incorrect assumptions about the library implementations and these concepts and
+ended up having file descriptor leak for every connection to the enclave. This issue was compounded
+by the limited Metrics and Observability we had into the enclave.
 
 ===
 
@@ -114,25 +111,21 @@ Observability we had into the enclave.
 
 Notes:
 
-Our Encryption service load our users encrypted keys once it has been fully
-attested by our KMS. Given we require full attestation we are unable to run in
-debug mode (Not that we ever would want to do this) and produce any logs from
-our service.
+Our Encryption service load our users encrypted keys once it has been fully attested by our KMS.
+Given we require full attestation we are unable to run in debug mode (Not that we ever would want to
+do this) and produce any logs from our service.
 
-To begin to get metrics out of service we had started blackbox monitoring it. We
-ran loadtests using artillery against it and instrumented the clients to produce
-metrics that would tell us how the service would perform under different
-workloads and scenarios.
+To begin to get metrics out of service we had started blackbox monitoring it. We ran loadtests using
+artillery against it and instrumented the clients to produce metrics that would tell us how the
+service would perform under different workloads and scenarios.
 
-This worked to help us fund bottlenecks in the service and optimise our
-workload. But this only got us so far for monitoring real production. When we
-wanted to actually debug real users queries we were missing vital details about
-what was happening.
+This worked to help us fund bottlenecks in the service and optimise our workload. But this only got
+us so far for monitoring real production. When we wanted to actually debug real users queries we
+were missing vital details about what was happening.
 
-For this we had to actually implement a concept of traces into the enclave. The
-Service would create a trace for each request store the finished trace and all
-its meta in a buffer that would periodically be flushed to a reporter on the
-host node for forwarding on to the central trace infra.
+For this we had to actually implement a concept of traces into the enclave. The Service would create
+a trace for each request store the finished trace and all its meta in a buffer that would
+periodically be flushed to a reporter on the host node for forwarding on to the central trace infra.
 
 ===
 
@@ -142,15 +135,13 @@ host node for forwarding on to the central trace infra.
 
 Notes:
 
-Now that we could see what was actually happening in the enclaves we noticed a
-disturbing performance difference for certain processes and requests in the
-enclave.
+Now that we could see what was actually happening in the enclaves we noticed a disturbing
+performance difference for certain processes and requests in the enclave.
 
-Any Service that communicated to another process in the enclave over local host
-had a massive performance impact on requests. We believe that this is due to the
-network being in userspace. We are hoping to try short circut this using sockmap
-between processes but this is still being tested. If anyone else has had simliar
-issues id love to talk about it with them after.
+Any Service that communicated to another process in the enclave over local host had a massive
+performance impact on requests. We believe that this is due to the network being in userspace. We
+are hoping to try short circut this using sockmap between processes but this is still being tested.
+If anyone else has had simliar issues id love to talk about it with them after.
 
 ===
 
@@ -160,11 +151,10 @@ There is no NTP in enclaves.
 
 Notes:
 
-Given we are running in an enclave we have no or limited network which means
-many things don't just work. Given the lack of standard networking access we
-notices that our enclaves would slip about 1 second a day, based on traffic
-volume. Not much but enough that after running for a few days we'd begin to to
-notice errors with anything time sensitive such as token validation.
+Given we are running in an enclave we have no or limited network which means many things don't just
+work. Given the lack of standard networking access we notices that our enclaves would slip about 1
+second a day, based on traffic volume. Not much but enough that after running for a few days we'd
+begin to to notice errors with anything time sensitive such as token validation.
 
 ---
 
@@ -179,12 +169,11 @@ changed</text></g></svg>
 
 Notes:
 
-Putting it all together we created Evervault Enclaves as a platform for others
-to deploy there services and don't have to worry about any of the issues we've
-run into.
+Putting it all together we created Evervault Enclaves as a platform for others to deploy there
+services and don't have to worry about any of the issues we've run into.
 
-Evervault Enclaves build from a regular docker container and are deployed into a
-enclave run in evervault infra. The enclaves have :
+Evervault Enclaves build from a regular docker container and are deployed into a enclave run in
+evervault infra. The enclaves have :
 
 - fully attestable connections.
 - TLS termination
@@ -197,5 +186,5 @@ We want to take the pain that we experience out of running enclaves.
 
 # Questions?
 
-Notes: If you want to chat about enclaves or are interested in what evervault
-does you can ping me or come up to me after.
+Notes: If you want to chat about enclaves or are interested in what evervault does you can ping me
+or come up to me after.

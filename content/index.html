@@ -10,14 +10,9 @@ eleventyExcludeFromCollections: true
 <ol reversed class="slidelist">
   {% for slide in collections.all | reverse %}
   <li class="slidelist-item">
-    <a
-      href="{{ slide.url }}"
-      class="slidelist-link"
-      target="_blank"
-      rel="noopener noreferrer"
-      >{% if slide.data.title %}{{ slide.data.title }}{% else %}<code
-        >{{ slide.url }}</code
-      >{% endif %}</a
+    <a href="{{ slide.url }}" class="slidelist-link" target="_blank" rel="noopener noreferrer"
+      >{% if slide.data.title %}{{ slide.data.title }}{% else %}<code>{{ slide.url }}</code>{% endif
+      %}</a
     >
     {% if slide.data.tags %}
     <div class="slidelist-tag">

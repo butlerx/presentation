@@ -1,10 +1,9 @@
 ---
 title: Observability, is it a buzz word or something you should care about
 description: >-
-  Cian is an SRE for demonware's data pipeline team working on metrics, logs and
-  game events systems. In the talk he be going in to Observability and what it
-  is. He will talk about why you should care about observability in your
-  programs and how to use it.
+  Cian is an SRE for demonware's data pipeline team working on metrics, logs and game events
+  systems. In the talk he be going in to Observability and what it is. He will talk about why you
+  should care about observability in your programs and how to use it.
 author: Cian Butler <butlerx@notthe.cloud>
 link: github.com/butlerx
 date: 2020-02-20T11:25:00Z
@@ -26,8 +25,8 @@ Note:
 
 Note:
 
-Yes Observability is a bit of a buzz word but it is actually very important to
-understanding what your application is doing in a production environment.
+Yes Observability is a bit of a buzz word but it is actually very important to understanding what
+your application is doing in a production environment.
 
 ---
 
@@ -35,17 +34,16 @@ understanding what your application is doing in a production environment.
 
 Observability is a term from control theory.
 
-> In control theory, observability is a measure of how well internal states of a
-> system can be inferred by knowledge of its external outputs. The observability
-> and controllability of a system are mathematical duals. -
+> In control theory, observability is a measure of how well internal states of a system can be
+> inferred by knowledge of its external outputs. The observability and controllability of a system
+> are mathematical duals. -
 >
 > - Wikipedia "observability"
 
 Note:
 
-Well this is quite a dry explanation so what is observability in the real tech?
-Observability is about being able to understand what is happening in a
-production system.
+Well this is quite a dry explanation so what is observability in the real tech? Observability is
+about being able to understand what is happening in a production system.
 
 ---
 
@@ -161,8 +159,8 @@ service.events_count;state=scheduled;backend=mysql;env=prod 90.0 1582136043
 service.build_info;branch=master;goversion=go1.13.4;version=6.5.1 1 1582136043
 ```
 
-Note: Known Questions you want to ask the service Metrics Allow you to produce
-Known State of your system at a specific time. These can be used to:
+Note: Known Questions you want to ask the service Metrics Allow you to produce Known State of your
+system at a specific time. These can be used to:
 
 - see is a system healthy
 - alert on

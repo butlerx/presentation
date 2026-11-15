@@ -1,7 +1,6 @@
 ---
 title: Tracing 101 with OTEL and rust
-description:
-  Overview of tracing core concepts in opentelemetry and how to use them in rust
+description: Overview of tracing core concepts in opentelemetry and how to use them in rust
 date: 2023-11-06T11:05:00Z
 slideOptions:
   theme: evervault
@@ -45,8 +44,7 @@ Notes:
 
 - A trace is made up of multiple spans
   - Can be 1 span from every service or mutiple spans from 1 service
-- Spans can be expensive to create and store so dont need to be created for
-  every function
+- Spans can be expensive to create and store so dont need to be created for every function
 
 ===
 
@@ -160,11 +158,10 @@ Notes:
 
 Notes:
 
-- Semantic convention is a way make traces better understood in different
-  backends.
+- Semantic convention is a way make traces better understood in different backends.
 - Is a suggestion on things to log/annotate events with and naming scheme
-- otel names can be dynamic while tracings arnt so can be set as `otel.name` as
-  the key in the span attribute.
+- otel names can be dynamic while tracings arnt so can be set as `otel.name` as the key in the span
+  attribute.
 
 ---
 

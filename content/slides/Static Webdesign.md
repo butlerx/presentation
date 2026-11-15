@@ -1,8 +1,7 @@
 ---
 title: Static Webdesign
 tags: [redbrick, hugo, static-webdesign]
-description:
-  Talk for redbrick on web development using hugo to create a static site
+description: Talk for redbrick on web development using hugo to create a static site
 date: 2020-02-05T11:25:00Z
 slideOptions:
   theme: redbrick
@@ -16,9 +15,8 @@ slideOptions:
 
 There are many
 [problems with cms](http://blog.theinternets.be/the-problem-with-modern-content-management-systems/)
-some due to security others dues to infrastructure dependency, database or
-running a server. Allows us to separate layout from content. Produces HTML which
-is easy to host and share.
+some due to security others dues to infrastructure dependency, database or running a server. Allows
+us to separate layout from content. Produces HTML which is easy to host and share.
 
 ---
 
@@ -47,15 +45,13 @@ A dynamic is one that is generated everytime you load it.
 
 # Hugo
 
-Written in go, so runs on anything. Uses markdown and yaml to store setting and
-contents.
+Written in go, so runs on anything. Uses markdown and yaml to store setting and contents.
 
 ---
 
 ## Using Hugo
 
-Hugo is already installed on pygmalion, so everyone just needs to ssh there to
-use it
+Hugo is already installed on pygmalion, so everyone just needs to ssh there to use it
 
 ```bash
 ssh username@pygmalion.redbrick.dcu.ie
@@ -102,8 +98,7 @@ nano content/index.md
 
 ### Changing images
 
-To get started you will want to add your own pictures for your avatar, banner
-and about photos.
+To get started you will want to add your own pictures for your avatar, banner and about photos.
 
 To change these you will need to add these to your `/static/img/` folder.
 
@@ -115,8 +110,7 @@ To change these you will need to add these to your `/static/img/` folder.
 
 ### Customising pages
 
-- Change the baseURL `baseURL: "http://username.redbrick.dcu.ie/"` to include
-  your username
+- Change the baseURL `baseURL: "http://username.redbrick.dcu.ie/"` to include your username
 - Change `title: A Redbrick users site` to the title of your main page
 - You can also add your social media links in here after `link: '#'`
 
@@ -178,8 +172,8 @@ Compression removes details but makes them smaller
 
 ### Minification
 
-Minification removes white spaces reducing the size of the file allowing you to
-load your site faster. You can minify html, css, or js.
+Minification removes white spaces reducing the size of the file allowing you to load your site
+faster. You can minify html, css, or js.
 
 Tools for minification:
 

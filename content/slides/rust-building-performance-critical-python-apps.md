@@ -1,6 +1,5 @@
 ---
-title:
-  'Building performance-critical Python tools with Rust: Lessons from production'
+title: 'Building performance-critical Python tools with Rust: Lessons from production'
 description: |-
   Python dominates web development, but they often comes with performance and
   scaling issues. Recently, the Python ecosystem has seen massive performance gains
@@ -100,8 +99,8 @@ Notes:
 
 Notes:
 
-- Rewrites is a no go, years of accumulated edge cases, logic that no one know
-  why it is but its important
+- Rewrites is a no go, years of accumulated edge cases, logic that no one know why it is but its
+  important
 - Rust tools that integrate easily WIN adoption
 - Minimal code changes = maximum uptake
 
@@ -121,8 +120,7 @@ Notes:
 Notes:
 
 - We arnt pulling in rust just for the sake of it. Though we may make that joke
-- Clear bottleneck → search for native modules alternatives with a preference to
-  Rust solution
+- Clear bottleneck → search for native modules alternatives with a preference to Rust solution
 - Testing timeline: vary, lower the stack longer we test.
 - Tools that require big changes get skipped
 
@@ -143,8 +141,7 @@ Notes:
 - Used Datadog and OpenTelemetry to trace requests end-to-end
 - Python load testers hit ceiling before our system did.
   - We had to spin up so many workers the operation cost became annoying
-- WRK was able to push the load but automating complex senarios with the lua
-  became to much
+- WRK was able to push the load but automating complex senarios with the lua became to much
 - Goose (Rust) could actually find real limits with a defined user senatios
 
 ===
@@ -237,8 +234,7 @@ Notes:
 Notes:
 
 - This is a funny story.
-- We discovered we were actually running both the Python jsonschema library AND
-  jsonschema-rs
+- We discovered we were actually running both the Python jsonschema library AND jsonschema-rs
 - we had migrated some code but not all calls to it
 - Clearly worked in prod just replaced all calls
 
@@ -246,8 +242,7 @@ Notes:
 
 ## Granian: Tokio/Hyper for Python
 
-**What it is:** Rust HTTP server for Python (ASGI/WSGI) Built on Tokio async
-runtime + Hyper HTTP
+**What it is:** Rust HTTP server for Python (ASGI/WSGI) Built on Tokio async runtime + Hyper HTTP
 
 **What it replaced:**
 
@@ -365,8 +360,8 @@ Notes:
 Notes:
 
 - Package managers are weird.
-- They do weird things like expecting a body size on a 307 that matches the size
-  of the thing after the 307.
+- They do weird things like expecting a body size on a 307 that matches the size of the thing after
+  the 307.
 - Nginx is doing something weird to make this work.
 
 ===
@@ -406,8 +401,8 @@ granian --interface wsgi \
 
 Notes:
 
-After lots of playing around we found some values that worked and replicated the
-HAProxy within Granians main eventloop
+After lots of playing around we found some values that worked and replicated the HAProxy within
+Granians main eventloop
 
 ---
 
@@ -432,8 +427,7 @@ Notes:
   - Needed: backlog depth, event loop saturation
 - Forked and added metrics ourselves
 - We never had time to address the concerns.
-- as of Friday(?) the maintainer got to implement the features and it'll be in
-  the next release
+- as of Friday(?) the maintainer got to implement the features and it'll be in the next release
 
 ---
 
@@ -498,8 +492,7 @@ Notes:
 
 **Cian Butler** — Senior SRE @ Cloudsmith 📧 cbutler@cloudsmith.io
 
-**tl;dr:** Your Rust tools gave us 2x throughput on 110M req/day. No rewrites.
-Just good libraries.
+**tl;dr:** Your Rust tools gave us 2x throughput on 110M req/day. No rewrites. Just good libraries.
 
 Notes:
 
