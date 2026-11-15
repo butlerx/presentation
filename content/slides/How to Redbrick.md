@@ -39,8 +39,8 @@ Does anyone need a redbrick login or password?
 
 ## Multiplexer
 
-A terminal multiplexer is used so that you can have multiple terminals open but
-in the one terminal window
+A terminal multiplexer is used so that you can have multiple terminals open but in the one terminal
+window
 
 ===
 
@@ -116,8 +116,8 @@ cd public_html
 chmod 755 .
 ```
 
-- You would have to create this file first `chmod 644 index.html` This sets
-  permissions for the folder and file
+- You would have to create this file first `chmod 644 index.html` This sets permissions for the
+  folder and file
 
 ---
 

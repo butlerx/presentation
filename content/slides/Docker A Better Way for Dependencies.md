@@ -14,8 +14,7 @@ slideOptions:
 ### What I want to talk about
 
 - What is Docker<!-- .element: class="fragment" data-fragment-index="1" -->
-- What it gives you as a
-  developer<!-- .element: class="fragment" data-fragment-index="2" -->
+- What it gives you as a developer<!-- .element: class="fragment" data-fragment-index="2" -->
 - And a Demo<!-- .element: class="fragment" data-fragment-index="3" -->
 
 ===
@@ -26,9 +25,8 @@ The complicated part!
 
 ===
 
-> A container image is a lightweight, stand-alone, executable package of a piece
-> of software that includes everything needed to run it: code, runtime, system
-> tools, system libraries, settings.
+> A container image is a lightweight, stand-alone, executable package of a piece of software that
+> includes everything needed to run it: code, runtime, system tools, system libraries, settings.
 
 Note:
 

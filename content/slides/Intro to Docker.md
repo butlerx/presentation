@@ -40,8 +40,7 @@ slideOptions:
 - Well Documented<!-- .element: class="fragment" data-fragment-index="1" -->
 - Lots of tools<!-- .element: class="fragment" data-fragment-index="2" -->
   - Docker-compose<!-- .element: class="fragment" data-fragment-index="3" -->
-  - aws & google
-    cloud<!-- .element: class="fragment" data-fragment-index="4" -->
+  - aws & google cloud<!-- .element: class="fragment" data-fragment-index="4" -->
 
 ---
 

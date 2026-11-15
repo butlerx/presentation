@@ -8,10 +8,9 @@
 
 ## Overview
 
-This repository hosts slide decks for talks authored by Cian Butler, written in
-Markdown and compiled to web presentations using
-[Eleventy (11ty)](https://www.11ty.dev/) and [reveal.js](https://revealjs.com/).
-It supports easy theming and deployment to GitHub Pages.
+This repository hosts slide decks for talks authored by Cian Butler, written in Markdown and
+compiled to web presentations using [Eleventy (11ty)](https://www.11ty.dev/) and
+[reveal.js](https://revealjs.com/). It supports easy theming and deployment to GitHub Pages.
 
 ## Repository Structure
 
@@ -31,11 +30,9 @@ _site/                     # (auto-generated) Built static site output
 - **Each presentation is a Markdown file located in `content/slides/`.**
 - **Frontmatter (`---`) defines metadata:**
   - `title`, `author`, `date`, `description`, optionally `slideOptions.theme`.
-- **Eleventy automatically discovers and lists all slides** on the homepage
-  (`content/index.html`).
+- **Eleventy automatically discovers and lists all slides** on the homepage (`content/index.html`).
 - **Each slide within a presentation is separated by `---`.**
-- **Images and other assets** may be referenced directly and are processed by
-  11ty.
+- **Images and other assets** may be referenced directly and are processed by 11ty.
 
 ### Example Presentation Frontmatter
 
@@ -60,20 +57,18 @@ More content here
 
 ## Theming
 
-- **Themes are simple CSS files** in `content/_includes/themes/` (e.g.,
-  `redbrick.css`).
-- **To use a theme**, specify its name (without `.css`) in `slideOptions.theme:`
-  in your presentation's frontmatter.
+- **Themes are simple CSS files** in `content/_includes/themes/` (e.g., `redbrick.css`).
+- **To use a theme**, specify its name (without `.css`) in `slideOptions.theme:` in your
+  presentation's frontmatter.
 - **To create a new theme:**
-  1. Copy or create a new CSS file in `content/_includes/themes/`, e.g.
-     `mytheme.css`.
+  1. Copy or create a new CSS file in `content/_includes/themes/`, e.g. `mytheme.css`.
   2. Reference it in your presentation:
      ```yaml
      slideOptions:
        theme: mytheme
      ```
-- SVG or PNG assets (logos, backgrounds) can go in the same folder. Themes and
-  images are copied into the output at build time.
+- SVG or PNG assets (logos, backgrounds) can go in the same folder. Themes and images are copied
+  into the output at build time.
 
 ## Configuration & Customization
 
@@ -83,8 +78,7 @@ More content here
 - **Reveal.js plugin config:** `eleventy.config.reveal.js`
   - Ensures custom themes and reveal.js assets are available in the output.
   - Uses Markdown-It with Reveal.js for slide parsing and features.
-- **Images:** Shortcode support via `@11ty/eleventy-img` for optimized
-  responsive images.
+- **Images:** Shortcode support via `@11ty/eleventy-img` for optimized responsive images.
 
 ## Running Locally
 
@@ -121,16 +115,13 @@ More content here
 3. **Write your slides:**
    - Separate each slide with `---`.
    - Use Markdown, HTML, or embed code, as Reveal.js supports.
-4. **Refresh the homepage** (on dev server) to verify it appears. Each talk gets
-   a direct link.
+4. **Refresh the homepage** (on dev server) to verify it appears. Each talk gets a direct link.
 
 ## Creating or Modifying a Theme
 
-1. **Create a CSS file** under `content/_includes/themes/` (e.g.,
-   `customtheme.css`).
+1. **Create a CSS file** under `content/_includes/themes/` (e.g., `customtheme.css`).
 2. **Reference it** in your markdown's `slideOptions.theme`.
-3. **Add logo/images** (SVG/PNG) in the same dir if needed; reference from your
-   CSS.
+3. **Add logo/images** (SVG/PNG) in the same dir if needed; reference from your CSS.
 4. **Custom themes will be automatically included** in the built Reveal assets.
 
 ---
@@ -140,8 +131,8 @@ More content here
 - **Automated via GitHub Actions!**
 - **Process:**
   - Triggers on any push to `main` or `master`.
-  - Workflow: checks out the code, installs (`pnpm install`), builds
-    (`pnpm build`), and uploads the `_site/` directory to GitHub Pages.
+  - Workflow: checks out the code, installs (`pnpm install`), builds (`pnpm build`), and uploads the
+    `_site/` directory to GitHub Pages.
   - No manual action is needed; deployment occurs automatically after each push.
 - **View the published site at:**
   [https://butlerx.github.io/presentation](https://butlerx.github.io/presentation)
@@ -152,8 +143,7 @@ More content here
 
 1. Fork & clone the repo.
 2. Install dependencies with `pnpm install`.
-3. Add or edit a markdown file in `content/slides/` or a theme in
-   `content/_includes/themes/`.
+3. Add or edit a markdown file in `content/slides/` or a theme in `content/_includes/themes/`.
 4. Test locally (`pnpm start`).
 5. Open a pull request!
 
@@ -161,8 +151,7 @@ More content here
 
 ## Author & License
 
-**Author:** Cian Butler
-GitHub: [@butlerx](https://github.com/butlerx) ·
+**Author:** Cian Butler GitHub: [@butlerx](https://github.com/butlerx) ·
 [Personal Site](https://cianbutler.ie)
 
 **License:** MIT

@@ -2,8 +2,8 @@
 title: Keeping data encrypted in memory with confidential computing
 date: 2024-02-21T15:00:00Z
 description:
-  An intro to confidential Computing and attestation and how you can use them to
-  protect users data at Runtime from prying eyes
+  An intro to confidential Computing and attestation and how you can use them to protect users data
+  at Runtime from prying eyes
 author: 'Cian Butler <cian@evervault.com>'
 slideOptions:
   theme: evervault
@@ -24,15 +24,15 @@ _Cian Butler SRE@Evervault_
 
 Notes:
 
-We have on disk encryption. This can take the form of an encrypted file or an
-encrypted value in a database. This is a pretty well understood space.
+We have on disk encryption. This can take the form of an encrypted file or an encrypted value in a
+database. This is a pretty well understood space.
 
 We have encrypted connection to servers: TLS, SSH and many more.
 
 But we are still missing something. At some point we need to decrypt this data.
 
-Once the data has been decrypted anyone with access to your machine and the
-right permissions can see whats happening.
+Once the data has been decrypted anyone with access to your machine and the right permissions can
+see whats happening.
 
 ---
 
@@ -45,18 +45,16 @@ changed</text></g></svg>
 
 Notes:
 
-The industry solution for this is enclaves. Enclaves go by many names, sometimes
-called TEE.
+The industry solution for this is enclaves. Enclaves go by many names, sometimes called TEE.
 
 - Intel SGX and TDX
 - AMD SEV-SNP
 - ARM Trust zones CCA
 
-Those are all hardware for implementing these solutions while AWS have
-NitroEncalves.
+Those are all hardware for implementing these solutions while AWS have NitroEncalves.
 
-You likely use an enclave everyday without realising it. They are commenly used
-for mobile wallets and key storage in phones.
+You likely use an enclave everyday without realising it. They are commenly used for mobile wallets
+and key storage in phones.
 
 ===
 
@@ -68,20 +66,18 @@ Notes:
 
 Enclaves break down into different varieties.
 
-Applications Enclaves are specially designed applications that are used to
-secure computation. These apps use specific syscalls to move there processing to
-secure chips on the hardware.
+Applications Enclaves are specially designed applications that are used to secure computation. These
+apps use specific syscalls to move there processing to secure chips on the hardware.
 
-We have two type of vm based enclaves. VM based enclaves are used to provide
-secure sidecars for doing compute. They have their own OS and will have a side
-channel of sorts to allow the host to communicate with them.
+We have two type of vm based enclaves. VM based enclaves are used to provide secure sidecars for
+doing compute. They have their own OS and will have a side channel of sorts to allow the host to
+communicate with them.
 
-Arm TrustZones and similar are used in phones for mobile wallets. They have
-custom OSes and will talk have an API/RPC system for communicating.
+Arm TrustZones and similar are used in phones for mobile wallets. They have custom OSes and will
+talk have an API/RPC system for communicating.
 
-The other style of VM's look like regular machines. You can run any OS or
-application you want on them. You'll again have a side channel it'll use to
-communicate with the main host.
+The other style of VM's look like regular machines. You can run any OS or application you want on
+them. You'll again have a side channel it'll use to communicate with the main host.
 
 ---
 
@@ -93,8 +89,8 @@ communicate with the main host.
 
 Notes:
 
-Unfortunately running enclaves is not as easy as running something like a VM or
-docker. A lot of the issues we ran into will be no surprise to many people.
+Unfortunately running enclaves is not as easy as running something like a VM or docker. A lot of the
+issues we ran into will be no surprise to many people.
 
 ===
 
@@ -105,18 +101,15 @@ docker. A lot of the issues we ran into will be no surprise to many people.
 
 Notes:
 
-In all forms of enclaves you'll have no shell, no logs or any of your standard
-obs tooling.
+In all forms of enclaves you'll have no shell, no logs or any of your standard obs tooling.
 
-When we started to have performance issues in prod we had to resort to black box
-loadtesting. This means we added metrics and logs to the client that
-communicates to the side channel so we could get a sense of what kind of
-workloads produce what kind of results.
+When we started to have performance issues in prod we had to resort to black box loadtesting. This
+means we added metrics and logs to the client that communicates to the side channel so we could get
+a sense of what kind of workloads produce what kind of results.
 
-Eventually we had to actually implement a concept of traces into the enclave.
-The Service would create a trace for each request store the finished trace and
-all its meta in a buffer that would periodically be flushed to a reporter on the
-host node for forwarding on to the central trace infra.
+Eventually we had to actually implement a concept of traces into the enclave. The Service would
+create a trace for each request store the finished trace and all its meta in a buffer that would
+periodically be flushed to a reporter on the host node for forwarding on to the central trace infra.
 
 ===
 
@@ -126,15 +119,13 @@ host node for forwarding on to the central trace infra.
 
 Notes:
 
-Now that we could see what was actually happening in the enclaves we noticed a
-disturbing performance difference for certain processes and requests in the
-enclave.
+Now that we could see what was actually happening in the enclaves we noticed a disturbing
+performance difference for certain processes and requests in the enclave.
 
-Any Service that communicated to another process in the enclave over local host
-had a massive performance impact on requests. We believe that this is due to the
-network being in userspace. We are hoping to try short circut this using sockmap
-between processes but this is still being tested. If anyone else has had similar
-issues id love to talk about it with them after.
+Any Service that communicated to another process in the enclave over local host had a massive
+performance impact on requests. We believe that this is due to the network being in userspace. We
+are hoping to try short circut this using sockmap between processes but this is still being tested.
+If anyone else has had similar issues id love to talk about it with them after.
 
 ===
 
@@ -144,11 +135,10 @@ There is no NTP in enclaves.
 
 Notes:
 
-Given we are running in an enclave we have no or limited network which means
-many things don't just work. Given the lack of standard networking access we
-notices that our enclaves would slip about 1 second a day, based on traffic
-volume. Not much but enough that after running for a few days we'd begin to to
-notice errors with anything time sensitive such as token validation.
+Given we are running in an enclave we have no or limited network which means many things don't just
+work. Given the lack of standard networking access we notices that our enclaves would slip about 1
+second a day, based on traffic volume. Not much but enough that after running for a few days we'd
+begin to to notice errors with anything time sensitive such as token validation.
 
 ---
 
@@ -158,22 +148,21 @@ Notes:
 
 Now enclaves arnt all pain. They have some cool stuff.
 
-You can attest the environment you are connecting to be that remotely or locally
-is 100% the code you deployed.
+You can attest the environment you are connecting to be that remotely or locally is 100% the code
+you deployed.
 
-This work by at build time for your image hashing all the software you used to
-generate a shared hash that is signed by your private ca. that hash is given to
-a client. When the client connects to the enclave you have the enclave return
-its current hash. The client then can compare this against the Hash it expects
-and validates the signature with the public ca and if it fails to validate the
+This work by at build time for your image hashing all the software you used to generate a shared
+hash that is signed by your private ca. that hash is given to a client. When the client connects to
+the enclave you have the enclave return its current hash. The client then can compare this against
+the Hash it expects and validates the signature with the public ca and if it fails to validate the
 connection is killed and data is never transferred.
 
-This attestation can also be done by the HW To validate that the image being
-deployed is the expected image and by the process in the image to the HW to
-ensure that the hw hasnt been tampered with.
+This attestation can also be done by the HW To validate that the image being deployed is the
+expected image and by the process in the image to the HW to ensure that the hw hasnt been tampered
+with.
 
-If any of these validations fail we can kill the process and stop an attacker
-getting access to our secure data.
+If any of these validations fail we can kill the process and stop an attacker getting access to our
+secure data.
 
 ---
 

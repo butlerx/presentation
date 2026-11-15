@@ -1,0 +1,47 @@
+[tools]
+node       = "lts"
+pnpm       = "latest"
+prek       = "latest"
+shellcheck = "latest"
+tombi      = "1.11.2"  # matches tombi-pre-commit rev in prek.toml
+zizmor     = "latest"
+
+[settings]
+experimental = true
+lockfile     = true
+
+[tasks.build]
+description = "Build the slides"
+run         = "pnpm build"
+
+[tasks.test]
+description = "Smoke test: the slides must build (no unit tests)"
+depends     = ["build"]
+
+[tasks.format]
+description = "Format files"
+run         = "pnpm exec prettier --write ."
+
+[tasks."format:check"]
+description = "Check formatting"
+run         = "pnpm exec prettier --check ."
+
+[tasks.lint]
+description = "Lint GitHub Actions workflows"
+run         = "zizmor --no-progress .github"
+
+[tasks."lint:fix"]
+description = "Fix lint issues"
+depends     = ["format"]
+
+[tasks.check]
+description = "Run all checks"
+depends     = ["format:check", "lint", "test"]
+
+[tasks.hooks]
+description = "Install the prek git hooks"
+run         = "prek install --install-hooks --hook-type pre-commit --hook-type commit-msg"
+
+[tasks.clean]
+description = "Clean built site"
+run         = "rm -rf _site"

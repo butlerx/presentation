@@ -2,9 +2,8 @@
 title: Compliance, it's just being an SRE
 date: 2023-12-05T10:28:18Z
 description:
-  Does this talk contain instructions on how to bend the forces of compliance to
-  your will? Does it explore the slow creeping horror that... we're on the same
-  side as the lawyers?
+  Does this talk contain instructions on how to bend the forces of compliance to your will? Does it
+  explore the slow creeping horror that... we're on the same side as the lawyers?
 author: Cian Butler <butlerx@notthe.cloud>
 slideOptions:
   theme: evervault
@@ -26,9 +25,9 @@ Or how building compliant systems builds stable systems
 
 ### What is an SRE
 
-> Site reliability engineering (SRE) is a set of principles and practices that
-> applies aspects of software engineering to IT infrastructure and operations.
-> SRE claims to create highly reliable and scalable software systems
+> Site reliability engineering (SRE) is a set of principles and practices that applies aspects of
+> software engineering to IT infrastructure and operations. SRE claims to create highly reliable and
+> scalable software systems
 >
 > Wikipedia
 
@@ -36,11 +35,10 @@ Or how building compliant systems builds stable systems
 
 ### And Compliance is...
 
-> Compliance refers to the adherence to laws, regulations, standards, and
-> internal policies that are relevant and applicable to a specific industry,
-> organization, or activity. It involves ensuring that businesses or entities
-> operate within the legal and regulatory boundaries set forth by governing
-> bodies or industry standards.
+> Compliance refers to the adherence to laws, regulations, standards, and internal policies that are
+> relevant and applicable to a specific industry, organization, or activity. It involves ensuring
+> that businesses or entities operate within the legal and regulatory boundaries set forth by
+> governing bodies or industry standards.
 >
 > A well known LLM
 
@@ -60,8 +58,8 @@ Sound pretty similar.
 - Documentation of security impact.
 - Documented change approval by authorized parties.
 - Testing to verify that the change does not adversely impact system security.
-- For bespoke and custom software changes, all updates are tested for compliance
-  with Requirement 6.2.4 before being deployed into production.
+- For bespoke and custom software changes, all updates are tested for compliance with Requirement
+  6.2.4 before being deployed into production.
 - Procedures to address failures and return to a secure state.
 
 Notes:
@@ -141,13 +139,12 @@ Notes:
 
 - Its there to help you be more secure and ensure you protect user data.
 - Its a set of rule that you can check and refer back to.
-  - When a developer says i want to do something bad you can point and say
-    compliance says no.
+  - When a developer says i want to do something bad you can point and say compliance says no.
   - Not a scapegoat
   - but a Rule on the wall
 - Compliance rules weren't handed down from on high
-- They are based of well founded practices that are designed to protect Users
-  and ensure systems remain secure.
+- They are based of well founded practices that are designed to protect Users and ensure systems
+  remain secure.
 
 ---
 
@@ -176,9 +173,8 @@ Notes:
   - They dont want to come in and make it complicated at the end either.
 - Build compliant software from day one.
   - too often the default is not secure, reliable or compliant.
-  - Making it easier to on board or get started by skipping this just makes it
-    someone else job to document how to productionise or secure it a and someone
-    elses job actioning those docs.
+  - Making it easier to on board or get started by skipping this just makes it someone else job to
+    document how to productionise or secure it a and someone elses job actioning those docs.
 
 ---
 

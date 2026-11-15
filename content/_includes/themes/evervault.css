@@ -1,13 +1,10 @@
 :root {
   --system-fonts:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
-  --font-family-base:
-    '__Inter_e66fe9', '__Inter_Fallback_e66fe9', var(--system-fonts);
-  --font-family-headings:
-    '__roobert_30c87b', '__roobert_Fallback_30c87b', var(--system-fonts);
-  --font-family-monospace:
-    '__Roboto_Mono_829659', '__Roboto_Mono_Fallback_829659', monospace;
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  --font-family-base: '__Inter_e66fe9', '__Inter_Fallback_e66fe9', var(--system-fonts);
+  --font-family-headings: '__roobert_30c87b', '__roobert_Fallback_30c87b', var(--system-fonts);
+  --font-family-monospace: '__Roboto_Mono_829659', '__Roboto_Mono_Fallback_829659', monospace;
 
   /* Primary */
   --primary: #63e;
@@ -59,8 +56,7 @@
   --btn-bg-secondary: rgba(52, 44, 65, 0.8);
   --btn-bg-secondary-hover: var(--btn-bg-secondary);
   --btn-color-secondary: var(--text-headings);
-  --btn-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.05);
+  --btn-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.05);
 
   /* Misc */
   --index-ventures: #fff;
@@ -214,12 +210,7 @@ body::after {
   height: 100%;
   background:
     url('./evervault-logo.svg') bottom 32px left 32px/256px no-repeat,
-    radial-gradient(
-      140% 107.13% at 50% 10%,
-      transparent 37.41%,
-      #63e 69.27%,
-      #fff 100%
-    );
+    radial-gradient(140% 107.13% at 50% 10%, transparent 37.41%, #63e 69.27%, #fff 100%);
   border-radius: var(--token-48);
   align-items: center;
   font-size: 38px;

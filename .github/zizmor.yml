@@ -1,0 +1,9 @@
+# static.yml is the existing GitHub Pages deploy and is intentionally left unchanged
+# (tag-pinned actions). TODO: pin it to SHAs in a follow-up.
+rules:
+  unpinned-uses:
+    ignore:
+      - static.yml
+  artipacked:
+    ignore:
+      - static.yml
