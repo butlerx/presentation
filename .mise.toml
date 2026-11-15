@@ -1,10 +1,10 @@
 [tools]
-node                 = "lts"
-pnpm                 = "latest"
-prek                 = "latest"
-shellcheck           = "latest"
-tombi                = "1.2.4"  # matches tombi-pre-commit rev in prek.toml
-zizmor               = "latest"
+node       = "lts"
+pnpm       = "latest"
+prek       = "latest"
+shellcheck = "latest"
+tombi      = "1.11.2"  # matches tombi-pre-commit rev in prek.toml
+zizmor     = "latest"
 
 [settings]
 experimental = true
